@@ -11,8 +11,17 @@
     "lazilyload": "./src/utils/lazilyload"
   },
   "public_path": "/",
+  "js_path": "static/js/",
+  "css_path": "static/css/",
+  "media_path": "static/media/",
+  "html": {
+    "DLL": "static/js/vendor.1ff27d0c.dll.js"
+  },
   "compiler_commons": [
     "lazilyload"
   ],
-  "compiler_vendors": []
+  "compiler_vendors": [
+    "react",
+    "react-dom"
+  ]
 }

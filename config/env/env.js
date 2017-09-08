@@ -9,9 +9,7 @@ module.exports = {
     '__DEV__': process.env.NODE_ENV === 'development',
     '__PROD__': process.env.NODE_ENV === 'production',
   },
-  html: {
-    DLL: 'AAA'
-  },
+  html: Object.assign({}, peak.html),
   port: process.env.PORT || peak.port,
   mock_port: process.env.PORT + 1 || peak.mock_port || peak.port + 1
 };

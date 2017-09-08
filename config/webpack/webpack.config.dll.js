@@ -11,14 +11,14 @@ module.exports = {
   },
   output: {
     path: paths.app_public,
-    filename: '[name].[chunkhash:8].dll.js',
+    filename: peak.js_path + '[name].[chunkhash:8].dll.js',
     library: '[name]_library'
   },
   plugins: [
     new webpack.DllPlugin({
       context: paths.app,
       name: '[name]_library',
-      path: paths.app_public_dllManifestJson
+      path: paths.app_dll_dllManifestJson
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {

@@ -37,8 +37,8 @@ const config = {
   output: {
     path: paths.app_build,
     publicPath: peak.public_path,
-    filename: 'static/js/[name].[chunkhash:8].js',
-    chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
+    filename: peak.js_path + '[name].[chunkhash:8].js',
+    chunkFilename: peak.js_path + '[name].[chunkhash:8].chunk.js',
     devtoolModuleFilenameTemplate: info =>
       path
         .relative(paths.app_src, info.absoluteResourcePath)
@@ -67,7 +67,7 @@ const config = {
             loader: require.resolve('url-loader'),
             options: {
               limit: 10000,
-              name: 'static/media/[name].[hash:8].[ext]',
+              name: peak.media_path + '[name].[hash:8].[ext]',
             },
           },
           {
@@ -129,7 +129,7 @@ const config = {
             loader: require.resolve('file-loader'),
             exclude: [/\.js$/, /\.html$/, /\.json$/],
             options: {
-              name: 'static/media/[name].[hash:8].[ext]',
+              name: peak.media_path + '[name].[hash:8].[ext]',
             },
           }
         ]
@@ -209,7 +209,7 @@ const config = {
     }),
     // css
     new ExtractTextPlugin({
-      filename: 'static/css/[name].[contenthash:8].css',
+      filename: peak.css_path + 'name].[contenthash:8].css',
       disable: false,
       allChunks: true,
     }),

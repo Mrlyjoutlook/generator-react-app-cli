@@ -6,15 +6,20 @@
   "scripts": {
     "dev": "better-npm-run dev",
     "compile": "better-npm-run compile",
-    "prod:dll": "better-npm-run prod:dll",
-    "dev:dll": "better-npm-run dev:dll",
+    "dll": "better-npm-run dll",
     "mock": "better-npm-run mock",
     "deploy": "better-npm-run deploy",
     "deploy:dev": "better-npm-run deploy:dev",
-    "deploy:prod": "better-npm-run deploy:prod",
-    "clean": "rimraf dist/*"
+    "deploy:prod": "better-npm-run deploy:prod"
   },
   "betterScripts": {
+    "dll": {
+      "command": "node bin/dll",
+      "env": {
+        "DEBUG": "app:*",
+        "NODE_ENV": "production"
+      }
+    },
     "dev": {
       "command": "nodemon bin/dev --ignore bin --ignore build --ignore public --ignore src --ignore node_modules",
       "env": {

@@ -10,6 +10,7 @@ const printBuildError = require('../config/utils/printBuildError');
 const clearConsole = require('../config/utils/clearConsole');
 const config = require('../config/webpack/webpack.config.prod');
 const paths = require('../config/env/paths');
+const peak = require('../peak.json');
 
 const measureFileSizesBeforeBuild = FileSizeReporter.measureFileSizesBeforeBuild;
 const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild;
@@ -94,7 +95,7 @@ measureFileSizesBeforeBuild(paths.app_build)
         WARN_AFTER_CHUNK_GZIP_SIZE
       );
       console.log();
-      debug('Build OK!');
+      debug('Build OK.');
     },
     err => {
       debug('Failed to compile.');
