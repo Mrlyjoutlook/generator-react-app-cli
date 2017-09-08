@@ -1,0 +1,131 @@
+{
+  "name": "create-react-generator",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "better-npm-run dev",
+    "compile": "better-npm-run compile",
+    "prod:dll": "better-npm-run prod:dll",
+    "dev:dll": "better-npm-run dev:dll",
+    "mock": "better-npm-run mock",
+    "deploy": "better-npm-run deploy",
+    "deploy:dev": "better-npm-run deploy:dev",
+    "deploy:prod": "better-npm-run deploy:prod",
+    "clean": "rimraf dist/*"
+  },
+  "betterScripts": {
+    "dev": {
+      "command": "nodemon bin/dev --ignore bin --ignore build --ignore public --ignore src --ignore node_modules",
+      "env": {
+        "DEBUG": "app:*",
+        "NODE_ENV": "development"
+      }
+    },
+    "compile": {
+      "command": "node bin/build",
+      "env": {
+        "DEBUG": "app:*"
+      }
+    },
+    "mock": {
+      "command": "cd mock && node mockServer",
+      "env": {}
+    },
+    "deploy": {
+      "command": "npm run compile",
+      "env": {
+        "DEBUG": "app:*"
+      }
+    },
+    "deploy:dev": {
+      "command": "npm run deploy",
+      "env": {
+        "DEBUG": "app:*",
+        "NODE_ENV": "development"
+      }
+    },
+    "deploy:prod": {
+      "command": "npm run deploy",
+      "env": {
+        "DEBUG": "app:*",
+        "NODE_ENV": "production"
+      }
+    }
+  },
+  "author": "mrlyj",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^7.1.3",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.8",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "better-npm-run": "^0.1.0",
+    "case-sensitive-paths-webpack-plugin": "^2.1.1",
+    "chalk": "^2.1.0",
+    "clean-webpack-plugin": "^0.1.16",
+    "compression": "^1.7.0",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.28.7",
+    "debug": "^3.0.1",
+    "escape-string-regexp": "^1.0.5",
+    "eslint": "^4.6.1",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-flowtype": "^2.35.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.3.0",
+    "express": "^4.15.4",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
+    "filesize": "^3.5.10",
+    "fs-extra": "^4.0.1",
+    "gzip-size": "^3.0.0",
+    "happypack": "^4.0.0-beta.5",
+    "html-webpack-plugin": "^2.30.1",
+    "http-proxy-middleware": "^0.17.4",
+    "ip": "^1.1.5",
+    "json-server": "^0.12.0",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.5",
+    "lodash-webpack-plugin": "^0.11.4",
+    "nodemon": "^1.12.0",
+    "object-assign": "^4.1.1",
+    "open": "^0.0.5",
+    "os": "^0.1.1",
+    "postcss-flexbugs-fixes": "^3.2.0",
+    "postcss-loader": "^2.0.6",
+    "promise": "^8.0.1",
+    "react-addons-perf": "^15.4.2",
+    "recursive-readdir": "^2.2.1",
+    "redbox-react": "^1.5.0",
+    "strip-ansi": "^4.0.0",
+    "style-loader": "^0.18.2",
+    "url-loader": "^0.5.9",
+    "vconsole-webpack-plugin": "^1.1.2",
+    "webpack": "^3.5.6",
+    "webpack-bundle-analyzer": "^2.9.0",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.19.0",
+    "webpack-manifest-plugin": "^1.3.1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "normalize.css": "^7.0.0",
+    "normalizr": "^3.2.3",
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-saga": "^0.15.6",
+    "redux-thunk": "^2.2.0"
+  }
+}

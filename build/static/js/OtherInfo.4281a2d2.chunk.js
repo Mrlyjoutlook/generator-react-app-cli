@@ -1,0 +1,2 @@
+webpackJsonp([4],{eQKx:function(e,n,t){"use strict";function a(){return u.a.createElement("div",null,u.a.createElement("span",null,"sex:"),u.a.createElement("span",null,"man"))}Object.defineProperty(n,"__esModule",{value:!0}),n.default=a;var l=t("U7vG"),u=t.n(l)}});
+//# sourceMappingURL=OtherInfo.4281a2d2.chunk.js.map
