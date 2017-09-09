@@ -20,7 +20,7 @@ checkIsUseDll(peak.compiler_vendors.length !== 0, paths.app_dll_dllManifestJson)
       return checkConfigisEqual(peak.compiler_vendors, require(paths.app_dll_dllConfigJson).chunk);
     },
     () => {
-      process.exit();
+      process.exit(1);
     }
   )
   .then(
@@ -37,13 +37,6 @@ checkIsUseDll(peak.compiler_vendors.length !== 0, paths.app_dll_dllManifestJson)
       });
     },
     () => {
-      process.exit();
+      process.exit(1);
     }
   );
-
-['SIGINT', 'SIGTERM'].forEach(function (sig) {
-  process.on(sig, function () {
-    devServer.close();
-    process.exit();
-  });
-});
