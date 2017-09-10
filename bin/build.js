@@ -1,7 +1,6 @@
 'use strict';
 
 const debug = require('debug')('app:bin:build');
-const path = require('path');
 const fs = require('fs-extra');
 const webpack = require('webpack');
 const FileSizeReporter = require('../config/utils/FileSizeReporter');
@@ -10,7 +9,6 @@ const printBuildError = require('../config/utils/printBuildError');
 const clearConsole = require('../config/utils/clearConsole');
 const config = require('../config/webpack/webpack.config.prod');
 const paths = require('../config/env/paths');
-const peak = require('../peak.json');
 
 const measureFileSizesBeforeBuild = FileSizeReporter.measureFileSizesBeforeBuild;
 const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild;
