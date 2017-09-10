@@ -2,7 +2,9 @@
 Is a cli for creating react project projects work.
 
 ## Table of Contents
-- [Requirements](#Requirements)
+- [Requirements](#requirements)
+- [Use](#use)
+- [Features](#features)
 
 ## Requirements
 ## Use
