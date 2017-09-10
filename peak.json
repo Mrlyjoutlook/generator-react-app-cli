@@ -1,6 +1,6 @@
 {
   "bundleAnalyzer": false,
-  "lodashJS": true,
+  "lodashJS": false,
   "vconsole": false,
 
   "host": "localhost",
