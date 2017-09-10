@@ -6,11 +6,11 @@ import App from './containers/App';
 
 // perf
 if (__DEV__) {
-  window.Perf = require('react-addons-perf')
+  window.Perf = require('react-addons-perf');
 }
 
 // init state
-const initialState = window.__INITIAL_STATE__;
+const initialState = window.INITIAL_STATE;
 const { store, runSaga } = createStore(initialState);
 
 // run saga

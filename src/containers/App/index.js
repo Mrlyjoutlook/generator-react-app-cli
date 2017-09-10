@@ -3,7 +3,7 @@ import { object } from 'prop-types';
 import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Header from '../../components/Header';
-import { loginRoute, personalRoute } from '../../config/routesConfig'
+import { loginRoute, personalRoute } from '../../config/routesConfig';
 import LoginRoute from '../../routes/login';
 import PersonalRoute from '../../routes/personal';
 import '../../styles/index.css';
@@ -38,7 +38,7 @@ class App extends Component {
               <Route exact path="/" component={Header} />
               <LoginRoute path={loginRoute.path} store={store} />
               <PersonalRoute path={personalRoute.path} store={store} />
-              <Route render={({ match }) => { return <h1>Not Found</h1> }} />
+              <Route render={() => { return <h1>Not Found</h1>; }} />
             </Switch>
           </div>
         </Router>

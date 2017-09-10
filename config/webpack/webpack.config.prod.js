@@ -17,6 +17,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const InterpolateHtmlPlugin = require('../utils/InterpolateHtmlPlugin');
 const ModuleScopePlugin = require('../utils/ModuleScopePlugin');
+const eslintFormatter = require('../utils/eslintFormatter');
 const paths = require('../env/paths');
 const env = require('../env/env');
 const peak = require('../../peak.json');
@@ -56,8 +57,16 @@ const config = {
     rules: [
       {
         test: /\.(js|jsx)$/,
+        exclude: [/node_modules/, /bin/, /build/, /config/, /dll/, /mock/, /public/],
         enforce: 'pre',
-        use: [],
+        use: [{
+          loader: require.resolve('eslint-loader'),
+          options: {
+            formatter: eslintFormatter,
+            eslintPath: require.resolve('eslint'),
+            ignore: ["bin", "config", "dll", "mock", "node_modules", "public"]
+          }
+        }],
         include: paths.app_src,
       },
       {

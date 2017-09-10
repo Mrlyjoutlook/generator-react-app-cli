@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class LazilyLoad extends React.Component {
-
   constructor() {
     super(...arguments);
     this.state = {
@@ -16,11 +15,11 @@ class LazilyLoad extends React.Component {
   }
 
   componentDidUpdate(previous) {
-    const shouldLoad = !!Object.keys(this.props.modules).filter((key)=> {
-        return this.props.modules[key] !== previous.modules[key];
+    const shouldLoad = !!Object.keys(this.props.modules).filter((key) => {
+      return this.props.modules[key] !== previous.modules[key];
     }).length;
     if (shouldLoad) {
-        this.load();
+      this.load();
     }
   }
 
@@ -58,12 +57,12 @@ LazilyLoad.propTypes = {
 };
 
 export const LazilyLoadFactory = (Component, modules) => {
-  return function LazilyLoadFactory (props) {
+  return (props) => {
     return (
       <LazilyLoad modules={modules}>
         {mods => <Component {...mods} {...props} />}
       </LazilyLoad>
-    )
+    );
   };
 };
 
@@ -75,7 +74,7 @@ export const lazilyLoadComponent = loadComponent => (
 
     componentWillMount() {
       if (this.hasLoadedComponent()) {
-        return;
+       return;
       }
 
       loadComponent()
@@ -86,7 +85,7 @@ export const lazilyLoadComponent = loadComponent => (
         .catch(err => {
           console.error(`Cannot load component in <LazilyLoadComponent />`);
           throw err;
-        })
+        });
     }
 
     hasLoadedComponent() {
@@ -98,7 +97,7 @@ export const lazilyLoadComponent = loadComponent => (
       return Component && <Component {...this.props} />;
     }
   }
-)
+);
 
 export const importLazy = promise => (
   promise.then(result => result.default)

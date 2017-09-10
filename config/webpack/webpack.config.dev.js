@@ -4,7 +4,6 @@
 'use strict';
 
 const path = require('path');
-const debug = require('debug')('app:config:webpack:dev');
 const webpack = require('webpack');
 const os = require('os');
 const HappyPack = require('happypack');
@@ -16,6 +15,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InterpolateHtmlPlugin = require('../utils/InterpolateHtmlPlugin');
 const ModuleScopePlugin = require('../utils/ModuleScopePlugin');
+const eslintFormatter = require('../utils/eslintFormatter');
 const paths = require('../env/paths');
 const env = require('../env/env');
 const peak = require('../../peak.json');
@@ -46,12 +46,20 @@ const config = {
   module: {
     strictExportPresence: true,
     rules: [
-      // {
-      //   test: /\.(js|jsx)$/,
-      //   enforce: 'pre',
-      //   use: [],
-      //   include: paths.app_src,
-      // },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: [/node_modules/, /bin/, /build/, /config/, /dll/, /mock/, /public/],
+        enforce: 'pre',
+        use: [{
+          loader: require.resolve('eslint-loader'),
+          options: {
+            formatter: eslintFormatter,
+            eslintPath: require.resolve('eslint'),
+            ignore: ["bin", "config", "dll", "mock", "node_modules", "public"]
+          }
+        }],
+        include: paths.app_src,
+      },
       {
         oneOf: [
           {
@@ -165,7 +173,6 @@ const config = {
     hints: false,
   }
 }
-debug(config)
 
 if (peak.vconsole) {
   config.plugins.push(
