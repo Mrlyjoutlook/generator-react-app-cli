@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createStore from './store/createStore';
-import rootSaga from './saga';
+// import rootSaga from './saga';
 import App from './containers/App';
 
 // perf
@@ -11,10 +11,10 @@ if (__DEV__) {
 
 // init state
 const initialState = window.INITIAL_STATE;
-const { store, runSaga } = createStore(initialState);
+const { store } = createStore(initialState);
 
 // run saga
-runSaga(rootSaga);
+// runSaga();
 
 // Render Setup
 const MOUNT_NODE = document.getElementById('root');

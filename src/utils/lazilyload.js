@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class LazilyLoad extends React.Component {
   constructor() {
-    super(...arguments);
+    super();
     this.state = {
       isLoaded: false,
     };
@@ -73,17 +73,12 @@ export const lazilyLoadComponent = loadComponent => (
     }
 
     componentWillMount() {
-      if (this.hasLoadedComponent()) {
-       return;
-      }
+      if (this.hasLoadedComponent()) return;
 
       loadComponent()
         .then(module => module.default)
-        .then(Component => {
-          this.setState({Component});
-        })
-        .catch(err => {
-          console.error(`Cannot load component in <LazilyLoadComponent />`);
+        .then(Component => this.setState({ Component }))
+        .catch((err) => {
           throw err;
         });
     }

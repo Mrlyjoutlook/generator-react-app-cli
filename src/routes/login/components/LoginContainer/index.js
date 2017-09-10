@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { object } from 'prop-types';
+// import { object } from 'prop-types';
 
 class LoginContainer extends Component {
   static propTypes = {
   }
 
-  shouldComponentUpdate () {
+  shouldComponentUpdate() {
     return false;
   }
 
-  render () {
+  render() {
     return (
       <div>
         login...
@@ -19,5 +19,3 @@ class LoginContainer extends Component {
 }
 
 export default LoginContainer;
-
-

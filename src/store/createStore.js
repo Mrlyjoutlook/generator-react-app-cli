@@ -1,11 +1,11 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import createSagaMiddleware from 'redux-saga'
+import createSagaMiddleware from 'redux-saga';
 import makeRootReducer from './reducers';
 
 export default (initialState = {}) => {
   // create saga middleware
-  const sagaMiddleware = createSagaMiddleware()
+  const sagaMiddleware = createSagaMiddleware();
 
   // Middleware Configuration
   const middleware = [thunk, sagaMiddleware];
@@ -31,7 +31,7 @@ export default (initialState = {}) => {
       ...enhancers,
     ),
   );
-  
+
   store.asyncReducers = {};
 
   if (module.hot) {
@@ -43,6 +43,6 @@ export default (initialState = {}) => {
 
   return {
     store,
-    runSaga: sagaMiddleware.run
+    runSaga: sagaMiddleware.run,
   };
 };
