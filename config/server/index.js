@@ -9,6 +9,7 @@ const proxy = require('http-proxy-middleware');
 const webpackConfig = require('../webpack/webpack.config.dev');
 const env = require('../env/env');
 const paths = require('../env/paths');
+const peak = require('../../package.json');
 
 const app = express();
 app.use(compress());
@@ -20,8 +21,8 @@ if (env.env === 'development') {
     publicPath: webpackConfig.output.publicPath,
     contentBase: paths.app,
     hot: true,
-    quiet: false,
-    historyApiFallback: true,
+    quiet: true,
+    historyApiFallback: false,
     noInfo: false,
     lazy: false,
     stats: {
