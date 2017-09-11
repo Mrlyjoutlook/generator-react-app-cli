@@ -1,5 +1,5 @@
 # Create-react-generator
-[![NPM version][https://img.shields.io/badge/{npm}-{0.0.1}-519dd9.svg]][npm-url] [![Downloads][https://img.shields.io/cocoapods/dm/AFNetworking.svg]][npm-url]
+[![][https://img.shields.io/badge/{npm}-{0.0.1}-519dd9.svg]] [![][https://img.shields.io/cocoapods/dm/AFNetworking.svg]]
 
 Is a cli for creating react project projects work.  
 
