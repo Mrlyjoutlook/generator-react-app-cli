@@ -1,5 +1,5 @@
 # Create-react-generator
-[![][https://img.shields.io/badge/{npm}-{0.0.1}-519dd9.svg]] [![][https://img.shields.io/cocoapods/dm/AFNetworking.svg]]
+[![Latest Stable Version](https://poser.pugx.org/phpunit/phpunit/version)](https://packagist.org/packages/phpunit/phpunit) [![Total Downloads](https://poser.pugx.org/phpunit/phpunit/downloads)](https://packagist.org/packages/phpunit/phpunit)
 
 Is a cli for creating react project projects work.  
 
