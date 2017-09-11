@@ -1,5 +1,5 @@
 # Create-react-generator
-[![Latest Stable Version](https://poser.pugx.org/phpunit/phpunit/version)](https://packagist.org/packages/phpunit/phpunit) [![Total Downloads](https://poser.pugx.org/phpunit/phpunit/downloads)](https://packagist.org/packages/phpunit/phpunit)
+[![Latest Stable Version](https://poser.pugx.org/phpunit/phpunit/version)](https://www.npmjs.com/package/generator-react-app-cli) [![Total Downloads](https://poser.pugx.org/phpunit/phpunit/downloads)](https://www.npmjs.com/package/generator-react-app-cli)
 
 Is a cli for creating react project projects work.  
 
