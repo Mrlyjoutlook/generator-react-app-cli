@@ -1,5 +1,5 @@
 {
-  "name": "create-react-generator",
+  "name": "generator-react-app-cli",
   "version": "0.1.0",
   "description": "",
   "bin": {
@@ -12,6 +12,12 @@
   },
   "author": "mrlyj <mr.lyj@outlook.com>",
   "license": "MIT",
+  "keywords": [
+    "boilerplates",
+    "react",
+    "cli",
+    "spa"
+  ],
   "bugs": {
     "url": "https://github.com/Mrlyjoutlook/create-react-generator/issues"
   },
@@ -25,6 +31,7 @@
     "win-spawn": "^2.0.0"
   },
   "devDependencies": {
+    "babel": "^6.23.0",
     "babel-eslint": "^7.2.3",
     "eslint": "^4.6.1"
   },

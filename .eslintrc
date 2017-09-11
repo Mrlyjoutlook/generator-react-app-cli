@@ -1,16 +1,14 @@
 {
+  "parser": "babel-eslint",
   "extends": "eslint:recommended",
   "env": {
     "commonjs": true,
     "node": true,
-    "es6": true
+    "es6": true,
+    "mocha": true
   },
   "rules": {
-    "no-console": [0]
-  },
-  "parserOptions": {
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
-    }
+    "no-console": [0],
+    "comma-dangle": ["error", "always-multiline"]
   }
 }

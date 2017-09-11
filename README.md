@@ -7,10 +7,17 @@ Is a cli for creating react project projects work.
 - [Requirements](#requirements)
 - [Use](#use)
 - [Features](#features)
-- [Config file](#config file)
+- [ConfigFile](#ConfigFile)
 - [End](#end)
 
 ## Requirements
+
+```
+node >= 7.6
+yarn >= 0.22
+npm >= 4.x
+```
+
 ## Use
 
 ```bash
@@ -31,7 +38,7 @@ $ npm run dev
 - support mobx boilerplate(Development ing).
 - support command update config(But don’t modify files in the current config directory).
 
-## Config file
+## ConfigFile
 Please edit peak.json.
 
 |key|Description|value|
@@ -44,9 +51,9 @@ Please edit peak.json.
 |mock_port|`mock server`端口地址|默认`3001`|
 |globals|程序全局变量，`webpack DefinePlugin`|默认`{}`|
 |public_path|应用的资源相对路径|默认`/`|
-|js_path|js资源的路径||默认`static/js/`|
-|css_path|css资源的路径||默认`static/css/`|
-|media_path|media资源(其它)的路径||默认`static/media/`|
+|js_path|js资源的路径|默认`static/js/`|
+|css_path|css资源的路径|默认`static/css/`|
+|media_path|media资源(其它)的路径|默认`static/media/`|
 |html|模板变量，可以在html中`<script src="%键名%"></script>`输出|默认`{}`|
 |compiler_commons|公用资源打包，建议自定义公用的js代码|默认`[]`|
 |compiler_vendors|公用资源打包，建议打包第三方的依赖，使用的是`webpack Dll相关功能`|默认`[]`,没值该功能关闭|

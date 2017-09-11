@@ -2,7 +2,7 @@
 'use strict';
 
 const program = require('commander'),
-    packConf = require('../package'),
+    packConf = require('../package.json'),
     spawn = require('win-spawn'),
     path = require('path'),
     fs = require('fs-extra'),
@@ -32,7 +32,7 @@ program
     .command('new')
     .description('构建项目工程')
     .usage('<project name>')
-    .action(function (cmd, options) {
+    .action(function (cmd) {
         console.log(chalk.green('peak: build project'));
         /**
          * 判断是否存在文件
@@ -43,11 +43,12 @@ program
             console.log(chalk.red('peak: project name is exist!'));
             process.exit(1);
         }else{
-            console.log(chalk.green('peak: executing command (new...)'))
-            const args = process.argv.slice(3)
-            const subcmd = program.args[0]
-            const runPath = executable(process.argv.slice(2,3))
-            wrap(spawn(runPath, args, {stdio: 'inherit', customFds: [0, 1, 2]}))
+            console.log(chalk.green('peak: executing command (new...)'));
+            const args = process.argv.slice(3);
+            // const subcmd = program.args[0];
+            const runPath = executable(process.argv.slice(2,3));
+            console.log(runPath, args);
+            wrap(spawn(runPath, args, {stdio: 'inherit', customFds: [0, 1, 2]}));
         }
     }).on('--help', function() {
     console.log('  Examples:');
@@ -60,17 +61,17 @@ program
     .command('doc')
     .description('相关技术文档')
     .usage('<doc name>')
-    .action(function (cmd, options) {
+    .action(function (cmd) {
         console.log(chalk.green('peak: find document'));
-        // if(exists(cmd)){
-        //     console.log(chalk.red('peak: project name is exist!'))
-        // }else{
-        //     console.log(chalk.green('peak: executing command (new...)'))
-        //     const args = process.argv.slice(3)
-        //     const subcmd = program.args[0]
-        //     const runPath = executable(process.argv.slice(2,3))
-        //     wrap(spawn(runPath, args, {stdio: 'inherit', customFds: [0, 1, 2]}))
-        // }
+        if(fs.existsSync(cmd)){
+            console.log(chalk.red('peak: project name is exist!'));
+        }else{
+            console.log(chalk.green('peak: executing command (new...)'));
+            const args = process.argv.slice(3);
+            // const subcmd = program.args[0]
+            const runPath = executable(process.argv.slice(2,3));
+            wrap(spawn(runPath, args, {stdio: 'inherit', customFds: [0, 1, 2]}));
+        }
     }).on('--help', function() {
     console.log('  Examples:');
     console.log();
