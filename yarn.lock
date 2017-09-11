@@ -1326,10 +1326,6 @@ which@^1.2.9:
   dependencies:
     isexe "^2.0.0"
 
-win-spawn@^2.0.0:
-  version "2.0.0"
-  resolved "http://r.cnpmjs.org/win-spawn/download/win-spawn-2.0.0.tgz#397a29130ec98d0aa0bc86baa4621393effd0b07"
-
 wordwrap@~1.0.0:
   version "1.0.0"
   resolved "http://r.cnpmjs.org/wordwrap/download/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"

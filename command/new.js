@@ -1,6 +1,7 @@
 #!/usr/bin/env node
+'use strict';
 
-const { mkdirpSync, moveSync } = require('fs-extra');
+const { mkdirpSync, copySync, writeJsonSync } = require('fs-extra');
 const vfs = require('vinyl-fs');
 const path = require('path');
 const chalk = require('chalk');
@@ -29,17 +30,16 @@ if (!arg) {
         ],
     },
     ]).then(function (firstAnswers) {
-        console.log(firstAnswers);
         const dest = path.join(process.cwd(), arg);
         const cwd = path.join(__dirname, '../boilerplates/', firstAnswers.react);
         mkdirpSync(dest);
-        moveSync(path.join(__dirname, '../peak.json'), dest, { overwrite: true });
-        moveSync(path.join(__dirname, '../config'), dest, { overwrite: true });
-        moveSync(path.join(__dirname, '../bin'), dest, { overwrite: true });
+        writeJsonSync(dest + '/peak.json', require(path.join(__dirname, '../peak.json')));
+        copySync(path.join(__dirname, '../config'), dest + '/config', { overwrite: true });
+        copySync(path.join(__dirname, '../bin'), dest + '/bin', { overwrite: true });
         vfs.src(['**/*', '!node_modules/**/*'], {cwd: cwd, cwdbase: true, dot: true})
         .pipe(vfs.dest(dest))
         .on('end', function() {
-            console.log(chalk.green('peak: building ok'))
+            console.log(chalk.green('peak: building ok'));
         });
     });
 }

@@ -3,7 +3,7 @@
 
 const program = require('commander'),
     packConf = require('../package.json'),
-    spawn = require('win-spawn'),
+    spawn = require('cross-spawn'),
     path = require('path'),
     fs = require('fs-extra'),
     chalk = require('chalk');
@@ -47,7 +47,6 @@ program
             const args = process.argv.slice(3);
             // const subcmd = program.args[0];
             const runPath = executable(process.argv.slice(2,3));
-            console.log(runPath, args);
             wrap(spawn(runPath, args, {stdio: 'inherit', customFds: [0, 1, 2]}));
         }
     }).on('--help', function() {
