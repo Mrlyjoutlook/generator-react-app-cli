@@ -1,14 +1,14 @@
 {
   "name": "generator-react-app-cli",
   "version": "0.1.0",
-  "description": "",
+  "description": "Is a cli for creating react project projects work.",
   "bin": {
     "peak": "./command/index.js"
   },
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Mrlyjoutlook/create-react-generator.git"
+    "url": "git@github.com:Mrlyjoutlook/generator-react-app-cli.git"
   },
   "author": "mrlyj <mr.lyj@outlook.com>",
   "license": "MIT",
@@ -19,9 +19,9 @@
     "spa"
   ],
   "bugs": {
-    "url": "https://github.com/Mrlyjoutlook/create-react-generator/issues"
+    "url": "https://github.com/Mrlyjoutlook/generator-react-app-cli/issues"
   },
-  "homepage": "https://github.com/Mrlyjoutlook/create-react-generator#readme",
+  "homepage": "https://github.com/Mrlyjoutlook/generator-react-app-cli#readme",
   "dependencies": {
     "chalk": "^2.1.0",
     "commander": "^2.11.0",
