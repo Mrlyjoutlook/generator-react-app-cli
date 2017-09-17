@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import { object } from 'prop-types';
 import BaseInfo from '../BaseInfo';
 import { lazilyLoadComponent } from 'lazilyload';
+import './index.less';
 
 class PersonalContainer extends Component {
   static propTypes = {
@@ -18,7 +19,7 @@ class PersonalContainer extends Component {
   }
 
   asyncComponent = () => {
-    const OtherInfo = lazilyLoadComponent(() => import(/* webpackChunkName: "OtherInfo" */ '../OtherInfo'));
+    const OtherInfo = lazilyLoadComponent(() => import(/* webpackChunkName: "otherInfo" */ '../OtherInfo'));
     return <OtherInfo />;
   }
 
@@ -26,9 +27,11 @@ class PersonalContainer extends Component {
     const { visible } = this.state;
 
     return (
-      <div>
-        <h2>eg: Click add component</h2>
-        <div style={{ width: 200, height: 20, background: '#000', color: '#fff', textAlign: 'center' }} onClick={this.handleOnClick}>click baseInfo component</div>
+      <div className="personal">
+        <p>eg: Click add component</p>
+        <div onClick={this.handleOnClick} className="btn">Add</div>
+        <p>eg: load baseInfo.chunk.js</p>
+        <p>eg: load otherInfo.chunk.js</p>
         {visible && <BaseInfo />}
         {visible && this.asyncComponent()}
       </div>

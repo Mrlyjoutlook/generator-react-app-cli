@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import registerServiceWorker from './registerServiceWorker';
 import createStore from './store/createStore';
 // import rootSaga from './saga';
 import App from './containers/App';
+import updataPrompt from './components/UpDataPrompt';
 
 // perf
-if (__DEV__) {
-  window.Perf = require('react-addons-perf');
-}
+window.Perf = __DEV__ ? require('react-addons-perf') : {};
 
 // init state
 const initialState = window.INITIAL_STATE;
@@ -52,3 +52,6 @@ if (__DEV__) {
 
 // start
 render();
+
+// register service worker
+registerServiceWorker(updataPrompt);

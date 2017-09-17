@@ -3,7 +3,7 @@
 const path = require('path');
 const fs = require('fs');
 const url = require('url');
-const peak = require('../../peak.json');
+const peak = require('../../peak.js');
 
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);

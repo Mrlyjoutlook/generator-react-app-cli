@@ -15,12 +15,14 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const InterpolateHtmlPlugin = require('../utils/InterpolateHtmlPlugin');
 const ModuleScopePlugin = require('../utils/ModuleScopePlugin');
 const eslintFormatter = require('../utils/eslintFormatter');
+const swConfig = require('../sw/sw.config');
 const paths = require('../env/paths');
 const env = require('../env/env');
-const peak = require('../../peak.json');
+const peak = require('../../peak.js');
 
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
@@ -218,10 +220,12 @@ const config = {
     }),
     // css
     new ExtractTextPlugin({
-      filename: peak.css_path + 'name].[contenthash:8].css',
+      filename: peak.css_path + '[name].[contenthash:8].css',
       disable: false,
       allChunks: true,
     }),
+    // service worker
+    new SWPrecacheWebpackPlugin(swConfig),
     // copy 文件
     // new CopyWebpackPlugin([{
     //   context: paths.app_public,
@@ -246,7 +250,7 @@ if (peak.compiler_vendors.length !== 0) {
   config.plugins.push(
     new webpack.DllReferencePlugin({
       context: paths.app,
-      manifest: paths.app_public_dllManifestJson
+      manifest: paths.app_dll_dllManifestJson
     })
   )
 }

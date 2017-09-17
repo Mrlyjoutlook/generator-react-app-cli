@@ -18,7 +18,7 @@ const ModuleScopePlugin = require('../utils/ModuleScopePlugin');
 const eslintFormatter = require('../utils/eslintFormatter');
 const paths = require('../env/paths');
 const env = require('../env/env');
-const peak = require('../../peak.json');
+const peak = require('../../peak.js');
 
 const config = {
   devtool: 'cheap-module-source-map',

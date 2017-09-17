@@ -1,17 +1,11 @@
-import React, { Component } from 'react';
-// import { object } from 'prop-types';
+import React, { PureComponent } from 'react';
+import './index.less';
 
-class Header extends Component {
-  shouldComponentUpdate() {
-    return false;
-  }
-
+class Header extends PureComponent {
   render() {
     return (
-      <div>
-        <h1>Creat React App</h1>
-        <div dangerouslySetInnerHTML={{ __html: 'react-router 4.x,<br/> webpack 3.x,<br/>' }} />
-        <hr />
+      <div className="header">
+        <span>Generator React App Cli</span>
       </div>
     );
   }

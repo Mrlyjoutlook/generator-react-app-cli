@@ -2,7 +2,7 @@
 
 const webpack = require('webpack');
 const paths = require('../env/paths');
-const peak = require('../../peak.json');
+const peak = require('../../peak.js');
 
 module.exports = {
   target: 'web',

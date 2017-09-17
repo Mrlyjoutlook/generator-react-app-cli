@@ -1,5 +1,5 @@
 'use strict';
-const peak = require('../../peak.json');
+const peak = require('../../peak.js');
 
 module.exports = {
   env: process.env.NODE_ENV || 'development',

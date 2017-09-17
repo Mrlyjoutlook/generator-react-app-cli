@@ -60,6 +60,7 @@ Please edit peak.json.
 |html|模板变量，可以在html中`<script src="%键名%"></script>`输出|默认`{}`|
 |compiler_commons|公用资源打包，建议自定义公用的js代码|默认`[]`|
 |compiler_vendors|公用资源打包，建议打包第三方的依赖，使用的是`webpack Dll相关功能`|默认`[]`,没值该功能关闭|
+|sw|service work的配置|默认`{}`|
 
 ## End
 
