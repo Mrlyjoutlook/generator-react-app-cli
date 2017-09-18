@@ -31,7 +31,7 @@ if (peak.version === peakFile.version) {
         copySync(path.join(__dirname, '../config'), curPath + '/config', { overwrite: true });
         copySync(path.join(__dirname, '../bin'), curPath + '/bin', { overwrite: true });
 
-        console.log('peak: Upgrade completed！');
+        console.log(chalk.green('peak: Upgrade completed！'));
       } else {
         console.log(chalk.red('peak: Please run the following command(npm i create-react-generator -g).'));
       }
