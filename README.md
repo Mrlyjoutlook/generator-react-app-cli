@@ -41,7 +41,7 @@ $ npm run dev
 ## Features
 - support redux boilerplate.
 - support mobx boilerplate(Development ing).
-- support service work().
+- support service work.
 - support command update config(But don’t modify files in the current config directory).
 
 ## ConfigFile

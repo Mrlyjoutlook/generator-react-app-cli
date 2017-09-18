@@ -4,7 +4,6 @@
 'use strict';
 
 const path = require('path');
-const debug = require('debug')('app:config:webpack:prod');
 const webpack = require('webpack');
 const os = require('os');
 const HappyPack = require('happypack');
@@ -12,8 +11,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+// const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const CleanWebpackPlugin = require('clean-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const InterpolateHtmlPlugin = require('../utils/InterpolateHtmlPlugin');
@@ -22,7 +21,7 @@ const eslintFormatter = require('../utils/eslintFormatter');
 const swConfig = require('../sw/sw.config');
 const paths = require('../env/paths');
 const env = require('../env/env');
-const peak = require('../../peak.js');
+const peak = require('../../peak.json');
 
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
@@ -33,9 +32,9 @@ const config = {
   entry: {
     app: [
       require.resolve('../utils/polyfills.js'),
-      paths.app_src_indexJs
+      paths.app_src_indexJs,
     ],
-    common: peak.compiler_commons
+    common: peak.compiler_commons,
   },
   output: {
     path: paths.app_build,
@@ -66,8 +65,8 @@ const config = {
           options: {
             formatter: eslintFormatter,
             eslintPath: require.resolve('eslint'),
-            ignore: ["bin", "config", "dll", "mock", "node_modules", "public"]
-          }
+            ignore: ["bin", "config", "dll", "mock", "node_modules", "public"],
+          },
         }],
         include: paths.app_src,
       },
@@ -107,10 +106,10 @@ const config = {
                       ],
                       flexbox: 'no-2009',
                     }),
-                  ]
-                }
-              }]
-            })
+                  ],
+                },
+              }],
+            }),
           },
           {
             test: /\.less$/,
@@ -128,8 +127,8 @@ const config = {
                 options: {
                   noIeCompat: true,
                 },
-              }]
-            })
+              }],
+            }),
           },
           {
             test: /\.(js|jsx)$/,
@@ -142,10 +141,10 @@ const config = {
             options: {
               name: peak.media_path + '[name].[hash:8].[ext]',
             },
-          }
-        ]
-      }
-    ]
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     // 多线程加速代码构建
@@ -182,7 +181,7 @@ const config = {
     }),
     // load 按需引入
     new webpack.LoaderOptionsPlugin({
-      minimize: true
+      minimize: true,
     }),
     // 提取共享的依赖
     new webpack.optimize.CommonsChunkPlugin({
@@ -195,7 +194,7 @@ const config = {
     new webpack.HashedModuleIdsPlugin(),
     // 生产资源映射表
     new ManifestPlugin({
-      fileName: 'asset-manifest.json'
+      fileName: 'asset-manifest.json',
     }),
     // webpack 3.0.0 范围提升（Scope Hoisting）
     new webpack.optimize.ModuleConcatenationPlugin(),
@@ -243,14 +242,14 @@ const config = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty',
-  }
+  },
 };
 
 if (peak.compiler_vendors.length !== 0) {
   config.plugins.push(
     new webpack.DllReferencePlugin({
       context: paths.app,
-      manifest: paths.app_dll_dllManifestJson
+      manifest: paths.app_dll_dllManifestJson,
     })
   )
 }

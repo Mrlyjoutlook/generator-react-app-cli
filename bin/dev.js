@@ -6,7 +6,7 @@ const clearConsole = require('../config/utils/clearConsole');
 const { checkIsUseDll, checkConfigisEqual } = require('../config/utils/dll');
 const env = require('../config/env/env');
 const paths = require('../config/env/paths');
-const peak = require('../peak.js');
+const peak = require('../peak.json');
 
 process.on('unhandledRejection', err => {
   throw err;

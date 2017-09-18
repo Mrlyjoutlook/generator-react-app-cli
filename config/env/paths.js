@@ -2,8 +2,7 @@
 
 const path = require('path');
 const fs = require('fs');
-const url = require('url');
-const peak = require('../../peak.js');
+const peak = require('../../peak.json');
 
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
@@ -29,5 +28,5 @@ module.exports = {
   app_src_indexHtml: resolveApp('src/index.html'),
   app_mock: resolveApp('mock'),
   app_packageJson: resolveApp('package.json'),
-  alias
+  alias,
 };

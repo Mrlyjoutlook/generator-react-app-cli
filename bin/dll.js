@@ -10,7 +10,7 @@ const clearConsole = require('../config/utils/clearConsole');
 const dll = require('../config/utils/dll');
 const env = require('../config/env/env');
 const paths = require('../config/env/paths');
-const peak = require('../peak.js');
+const peak = require('../peak.json');
 
 clearConsole();
 debug('Creating an optimized production build...');
@@ -51,7 +51,7 @@ webpack(config).run((err, stats) => {
     debug('Build OK!');
 
     console.log(chalk.dim('\nWarn:\n'));
-    console.log('     ' + chalk.yellow('please edit peak.js(html), add key-value'));
+    console.log('     ' + chalk.yellow('please edit peak.json(html), add key-value'));
     console.log('     ' + chalk.yellow('eg:'));
     console.log('       ' + chalk.yellow('{...'));
     console.log('       ' + chalk.yellow('html: { test: **/**/**.js }'));

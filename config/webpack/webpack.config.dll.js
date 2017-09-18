@@ -2,17 +2,17 @@
 
 const webpack = require('webpack');
 const paths = require('../env/paths');
-const peak = require('../../peak.js');
+const peak = require('../../peak.json');
 
 module.exports = {
   target: 'web',
   entry: {
-    vendor: peak.compiler_vendors
+    vendor: peak.compiler_vendors,
   },
   output: {
     path: paths.app_public,
     filename: peak.js_path + '[name].[chunkhash:8].dll.js',
-    library: '[name]_library'
+    library: '[name]_library',
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -21,7 +21,7 @@ module.exports = {
     new webpack.DllPlugin({
       context: paths.app,
       name: '[name]_library',
-      path: paths.app_dll_dllManifestJson
+      path: paths.app_dll_dllManifestJson,
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
@@ -40,6 +40,6 @@ module.exports = {
         ascii_only: true,
       },
       sourceMap: true,
-    })
-  ]
+    }),
+  ],
 };

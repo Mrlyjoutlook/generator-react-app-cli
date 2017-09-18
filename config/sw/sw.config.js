@@ -1,7 +1,7 @@
 /**
  * service work 常规配置
  */
-const peak = require('../../peak.js');
+const peak = require('../../peak.json');
 
 module.exports = Object.assign({}, {
   cacheId: 'app-cache',
@@ -30,7 +30,7 @@ module.exports = Object.assign({}, {
    */
   staticFileGlobsIgnorePatterns: [
       /\.map$/,
-      /asset-manifest\.json$/
+      /asset-manifest\.json$/,
   ],
 
   /**

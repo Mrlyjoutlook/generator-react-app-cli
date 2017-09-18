@@ -5,8 +5,6 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const os = require('os');
-const HappyPack = require('happypack');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -18,14 +16,14 @@ const ModuleScopePlugin = require('../utils/ModuleScopePlugin');
 const eslintFormatter = require('../utils/eslintFormatter');
 const paths = require('../env/paths');
 const env = require('../env/env');
-const peak = require('../../peak.js');
+const peak = require('../../peak.json');
 
 const config = {
   devtool: 'cheap-module-source-map',
   entry: [
     require.resolve('../utils/polyfills.js'),
     `webpack-hot-middleware/client?path=${peak.public_path}__webpack_hmr`,
-    paths.app_src_indexJs
+    paths.app_src_indexJs,
   ],
   output: {
     path: paths.app_build,
@@ -55,8 +53,8 @@ const config = {
           options: {
             formatter: eslintFormatter,
             eslintPath: require.resolve('eslint'),
-            ignore: ["bin", "config", "dll", "mock", "node_modules", "public"]
-          }
+            ignore: ["bin", "config", "dll", "mock", "node_modules", "public"],
+          },
         }],
         include: paths.app_src,
       },
@@ -68,7 +66,7 @@ const config = {
             options: {
               limit: 10000,
               name: 'static/media/[name].[hash:8].[ext]',
-            }
+            },
           },
           {
             test: /\.css$/,
@@ -80,7 +78,7 @@ const config = {
                   importLoaders: 1,
                   minimize: true,
                   sourceMap: true,
-                }
+                },
               }, {
                 loader: require.resolve('postcss-loader'),
                 options: {
@@ -97,9 +95,9 @@ const config = {
                       flexbox: 'no-2009',
                     }),
                   ],
-                }
-              }
-            ]
+                },
+              },
+            ],
           },
           {
             test: /\.less$/,
@@ -111,15 +109,15 @@ const config = {
                   importLoaders: 1,
                   minimize: true,
                   sourceMap: true,
-                }
+                },
               },
               {
                 loader: require.resolve('less-loader'),
                 options: {
                   noIeCompat: true,
-                }
+                },
               },
-            ]
+            ],
           },
           {
             test: /\.(js|jsx)$/,
@@ -132,10 +130,10 @@ const config = {
             options: {
               name: 'static/media/[name].[hash:8].[ext]',
             },
-          }
-        ]
-      }
-    ]
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     // 模板替换
@@ -171,7 +169,7 @@ const config = {
   },
   performance: {
     hints: false,
-  }
+  },
 }
 
 if (peak.vconsole) {
