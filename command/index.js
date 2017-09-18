@@ -58,7 +58,7 @@ program
 
   program
   .command('update')
-  .description('升级项目的相关配置文件(/bin、/config、/peak.json)')
+  .description('升级项目的相关配置文件(/bin/*、/config/*、/peak.js)')
   .usage('<project name>')
   .action(function (cmd) {
       console.log(chalk.green('peak: update project.'));
