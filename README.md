@@ -37,7 +37,7 @@ $ npm run dev
 ```
 
 <div align="center">
-  <img src="https://github.com/Mrlyjoutlook/generator-react-app-cli/blob/master/picture/terminal.png" width="320px">
+  <img src="https://github.com/Mrlyjoutlook/generator-react-app-cli/blob/master/picture/terminal.png" width="450px">
 </div>
 
 ## Features
