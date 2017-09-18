@@ -40,9 +40,9 @@ $ npm update
 ```
 
 *Remarks*
-- `npm update`，升级需要先更新**generator-react-app-cli**，升级会覆盖*/config*、*/bin*，如果有修改过其下的文件，请备份。
+- `npm update`，升级需要先更新**generator-react-app-cli**，升级会覆盖/config、/bin，如果有修改过其下的文件，请备份。
 
-<div align="center">
+<div>
   <img src="https://github.com/Mrlyjoutlook/generator-react-app-cli/blob/master/picture/terminal.png" width="450px">
   <img src="https://github.com/Mrlyjoutlook/generator-react-app-cli/blob/master/picture/terminal1.png" width="450px">
 </div>
