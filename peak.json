@@ -19,7 +19,7 @@
   "css_path": "static/css/",
   "media_path": "static/media/",
   "html": {
-    "DLL": "static/js/vendor.1ff27d0c.dll.js"
+    "DLL": "static/js/vendor.9d648684.dll.js"
   },
   "compiler_commons": [
     "lazilyload"

@@ -36,7 +36,9 @@ $ npm i
 $ npm run dev
 ```
 
-![terminal](/picture/terminal.png)
+<div align="center">
+  <img src="https://github.com/Mrlyjoutlook/generator-react-app-cli/blob/master/picture/terminal.png" width="320px">
+</div>
 
 ## Features
 - support redux boilerplate.
