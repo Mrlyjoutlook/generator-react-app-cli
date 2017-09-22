@@ -12,8 +12,9 @@ const chalk = require('chalk');
 function checkIsUseDll(isCheck, jsonPath) {
   return new Promise((resolve, reject) => {
     if (!isCheck) {
-      reject(new Error('Not started!'));
-    };
+      resolve(false);
+      return false;
+    }
     if (fs.existsSync(jsonPath)) {
       console.log(chalk.dim('Check if the file(dll-manifest.json) exists:\n'));
       console.log('     ' + chalk.green('Exist!'));

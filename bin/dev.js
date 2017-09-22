@@ -16,8 +16,12 @@ clearConsole();
 
 checkIsUseDll(peak.compiler_vendors.length !== 0, paths.app_dll_dllManifestJson)
   .then(
-    () => {
-      return checkConfigisEqual(peak.compiler_vendors, require(paths.app_dll_dllConfigJson).chunk);
+    (checkConfig) => {
+      if (checkConfig) {
+        return checkConfigisEqual(peak.compiler_vendors, require(paths.app_dll_dllConfigJson).chunk);
+      } else {
+        return true
+      }
     },
     () => {
       process.exit(1);

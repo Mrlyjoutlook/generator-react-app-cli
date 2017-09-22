@@ -9,7 +9,6 @@ const proxy = require('http-proxy-middleware');
 const webpackConfig = require('../webpack/webpack.config.dev');
 const env = require('../env/env');
 const paths = require('../env/paths');
-// const peak = require('../../package.json');
 
 const app = express();
 app.use(compress());
