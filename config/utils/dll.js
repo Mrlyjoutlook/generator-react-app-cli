@@ -19,13 +19,13 @@ function checkIsUseDll(isCheck, jsonPath) {
       console.log(chalk.dim('Check if the file(dll-manifest.json) exists:\n'));
       console.log('     ' + chalk.green('Exist!'));
       console.log();
-      resolve('');
+      resolve(true);
     } else {
       console.log(chalk.dim('Check if the file(dll-manifest.json) exists:\n'));
       console.log('     ' + chalk.red('No search!'));
       console.log('     ' + chalk.red('Please run: npm run dll!'));
       console.log();
-      reject('');
+      reject(true);
     }
   });
 }

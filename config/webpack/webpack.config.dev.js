@@ -36,7 +36,7 @@ const config = {
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
   },
   resolve: {
-    extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx', '.ts', '.tsx'],
+    extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx'],
     plugins: [
       new ModuleScopePlugin(paths.app_src, [paths.app_packageJson]),
     ],
@@ -181,6 +181,15 @@ if (peak.vconsole) {
     // 移动开发log工具
     new vConsolePlugin({ enable: true })
   );
+}
+
+if (peak.compiler_vendors.length !== 0) {
+  config.plugins.push(
+    new webpack.DllReferencePlugin({
+      context: paths.app,
+      manifest: paths.app_dll_dllManifestJson,
+    })
+  )
 }
 
 if (peak.bundleAnalyzer) {
