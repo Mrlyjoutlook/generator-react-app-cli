@@ -24,9 +24,6 @@
   "compiler_commons": [
     "lazilyload"
   ],
-  "compiler_vendors": [
-    "react",
-    "react-dom"
-  ],
+  "compiler_vendors": [],
   "sw": {}
 }

@@ -1,8 +1,8 @@
 'use strict';
 
 const debug = require('debug')('app:bin:dev');
-const open = require('open');
 const clearConsole = require('../config/utils/clearConsole');
+const openBrowser = require('../config/utils/openBrowser');
 const { checkIsUseDll, checkConfigisEqual } = require('../config/utils/dll');
 const env = require('../config/env/env');
 const paths = require('../config/env/paths');
@@ -37,10 +37,16 @@ checkIsUseDll(peak.compiler_vendors.length !== 0, paths.app_dll_dllManifestJson)
           clearConsole();
         }
         debug(`==> 🌎  Development Listening on port ${env.port}. Open up http://localhost:${env.port}/ in your browser.`);
-        open('http://localhost:' + env.port);
+        openBrowser('http://localhost:' + env.port);
       });
     },
     () => {
       process.exit(1);
     }
-  );
+  )
+  .catch(err => {
+    if (err && err.message) {
+      console.log(err.message);
+    }
+    process.exit(1);
+  });

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
 import registerServiceWorker from './registerServiceWorker';
 import createStore from './store/createStore';
 // import rootSaga from './saga';
@@ -19,39 +20,27 @@ const { store } = createStore(initialState);
 // Render Setup
 const MOUNT_NODE = document.getElementById('root');
 
-let render = () => {
-  ReactDOM.render(<App store={store} />, MOUNT_NODE);
+const render = (Component) => {
+  ReactDOM.render(
+    <AppContainer>
+      <Component store={store} />
+    </AppContainer>
+    , MOUNT_NODE);
 };
 
 // This code is excluded from production bundle
 if (__DEV__) {
   if (module.hot) {
-    const renderApp = render;
-    const renderError = (error) => {
-      const RedBox = require('redbox-react').default;
-      ReactDOM.render(<RedBox error={error} />, MOUNT_NODE);
-    };
-    render = () => {
-      try {
-        renderApp();
-      } catch (error) {
-        console.error(error);
-        renderError(error);
-      }
-    };
-
     // Setup hot module replacement
-    module.hot.accept('./containers/App', () =>
-      setImmediate(() => {
-        ReactDOM.unmountComponentAtNode(MOUNT_NODE);
-        render();
-      }),
-    );
+    module.hot.accept('./containers/App', () => {
+      const NextApp = require('./containers/App').default;
+      render(NextApp);
+    });
   }
 }
 
 // start
-render();
+render(App);
 
 // register service worker
 registerServiceWorker(updataPrompt);

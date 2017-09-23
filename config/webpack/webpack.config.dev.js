@@ -22,6 +22,7 @@ const config = {
   devtool: 'cheap-module-source-map',
   entry: [
     require.resolve('../utils/polyfills.js'),
+    'react-hot-loader/patch',
     `webpack-hot-middleware/client?path=${peak.public_path}__webpack_hmr`,
     paths.app_src_indexJs,
   ],
@@ -122,7 +123,10 @@ const config = {
           {
             test: /\.(js|jsx)$/,
             include: paths.app_src,
-            loader: require.resolve('babel-loader'),
+            use: [
+              require.resolve('react-hot-loader/webpack'),
+              require.resolve('babel-loader'),
+            ],
           },
           {
             exclude: [/\.js$/, /\.html$/, /\.json$/],

@@ -20,6 +20,11 @@
           "ignoreFilenames": ["node_modules"]
         }]
       ]
+    },
+    "development": {
+      "plugins": [
+        "react-hot-loader/babel"
+      ]
     }
   }
 }
