@@ -14,10 +14,12 @@ process.on('unhandledRejection', err => {
 
 clearConsole();
 
+// 检查是否使用webpack dll功能
 checkIsUseDll(peak.compiler_vendors.length !== 0, paths.app_dll_dllManifestJson)
   .then(
     (checkConfig) => {
       if (checkConfig) {
+        // 检查相关配置是否被更新
         return checkConfigisEqual(peak.compiler_vendors, require(paths.app_dll_dllConfigJson).chunk);
       } else {
         return true
