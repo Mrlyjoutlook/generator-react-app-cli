@@ -13,10 +13,11 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InterpolateHtmlPlugin = require('../utils/InterpolateHtmlPlugin');
 const ModuleScopePlugin = require('../utils/ModuleScopePlugin');
-const eslintFormatter = require('../utils/eslintFormatter');
 const paths = require('../env/paths');
 const env = require('../env/env');
 const peak = require('../../peak.json');
+
+const entry = peak.language === 'js' ? paths.app_src_indexJs : paths.app_src_indexTsx;
 
 const config = {
   devtool: 'cheap-module-source-map',
@@ -24,7 +25,7 @@ const config = {
     require.resolve('../utils/polyfills.js'),
     'react-hot-loader/patch',
     `webpack-hot-middleware/client?path=${peak.public_path}__webpack_hmr`,
-    paths.app_src_indexJs,
+    entry,
   ],
   output: {
     path: paths.app_build,
@@ -36,7 +37,7 @@ const config = {
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
   },
   resolve: {
-    extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx'],
+    extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx', '.ts', '.tsx'],
     plugins: [
       new ModuleScopePlugin(paths.app_src, [paths.app_packageJson]),
     ],
@@ -45,20 +46,28 @@ const config = {
   module: {
     strictExportPresence: true,
     rules: [
-      {
+      {...peak.language === 'js' ? {
         test: /\.(js|jsx)$/,
         exclude: [/node_modules/, /bin/, /build/, /config/, /dll/, /mock/, /public/],
         enforce: 'pre',
         use: [{
           loader: require.resolve('eslint-loader'),
           options: {
-            formatter: eslintFormatter,
+            formatter: require.resolve('../utils/eslintFormatter'),
             eslintPath: require.resolve('eslint'),
             ignore: ["bin", "config", "dll", "mock", "node_modules", "public"],
           },
         }],
         include: paths.app_src,
-      },
+      } : {
+        test: /\.(ts|tsx)$/,
+        exclude: [/node_modules/, /bin/, /build/, /config/, /dll/, /mock/, /public/],
+        enforce: 'pre',
+        use: [{
+          loader: require.resolve('tslint-loader'),
+        }],
+        include: paths.app_src,
+      }},
       {
         oneOf: [
           {
@@ -121,12 +130,21 @@ const config = {
             ],
           },
           {
-            test: /\.(js|jsx)$/,
-            include: paths.app_src,
-            use: [
-              require.resolve('react-hot-loader/webpack'),
-              require.resolve('babel-loader'),
-            ],
+            ...peak.language === 'js' ? {
+              test: /\.(js|jsx)$/,
+              include: paths.app_src,
+              use: [
+                require.resolve('react-hot-loader/webpack'),
+                require.resolve('babel-loader'),
+              ],
+            } : {
+              test: /\.(ts|tsx)$/,
+              include: paths.app_src,
+              use:[
+                require.resolve('react-hot-loader/webpack'),
+                require.resolve('awesome-typescript-loader'),
+              ],
+            },
           },
           {
             exclude: [/\.js$/, /\.html$/, /\.json$/],
@@ -174,6 +192,17 @@ const config = {
   performance: {
     hints: false,
   },
+}
+
+if (peak.language === 'ts') {
+  config.module.rules.push(
+    {
+      test: /\.js$/,
+      enforce: "pre",
+      include: paths.app_src,
+      loader: require.resolve('source-map-loader'),
+    }
+  )
 }
 
 if (peak.vconsole) {

@@ -1,6 +1,7 @@
 
 {
-  "version": "0.2.2",
+  "version": "0.3.0",
+  "language": "js",
 
   "bundleAnalyzer": false,
   "lodashJS": false,
@@ -19,9 +20,7 @@
   "css_path": "static/css/",
   "media_path": "static/media/",
   "html": {},
-  "compiler_commons": [
-    "lazilyload"
-  ],
+  "compiler_commons": [],
   "compiler_vendors": [],
   "sw": {}
 }

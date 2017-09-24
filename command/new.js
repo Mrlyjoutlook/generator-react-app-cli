@@ -9,37 +9,62 @@ const inquirer = require('inquirer');
 
 const arg = process.argv[2];
 if (!arg) {
-    console.log(chalk.red('peak: 缺少项目工程名称'))
+  console.log(chalk.red('peak: 缺少项目工程名称'))
 } else {
-    console.log(chalk.green('peak: building...'));
-    inquirer.prompt([{
+  console.log(chalk.green('peak: building...'));
+  inquirer.prompt([{
+    type: 'list',
+    message: 'peak: select the type of development technology',
+    name: 'react',
+    choices: [
+      {
+        key: 'redux',
+        name: 'react+redux',
+        value: 'redux',
+      },
+      {
+        key: 'mbox',
+        name: 'react+mbox',
+        value: 'mbox',
+      },
+    ],
+  }])
+    .then(function (firstAnswers) {
+
+      inquirer.prompt([{
         type: 'list',
-        message: 'peak: select the type of development technology',
-        name: 'react',
+        message: 'peak: select language ts(typescript) or js(javascript)',
+        name: 'language',
         choices: [
-            {
-                key: 'redux',
-                name: 'react+redux',
-                value: 'redux',
-            },
-            {
-                key: 'mbox',
-                name: 'react+mbox',
-                value: 'mbox',
-            },
+          {
+            key: 'ts',
+            name: 'typescript(如果没问题的话，推荐使用typescript开发)',
+            value: 'ts',
+          },
+          {
+            key: 'js',
+            name: 'javascript',
+            value: 'js',
+          },
         ],
-    },
-    ]).then(function (firstAnswers) {
-        const dest = path.join(process.cwd(), arg);
-        const cwd = path.join(__dirname, '../boilerplates/', firstAnswers.react);
-        mkdirpSync(dest);
-        writeJsonSync(dest + '/peak.json', require(path.join(__dirname, '../peak.json')));
-        copySync(path.join(__dirname, '../config'), dest + '/config', { overwrite: true });
-        copySync(path.join(__dirname, '../bin'), dest + '/bin', { overwrite: true });
-        vfs.src(['**/*', '!node_modules/**/*'], {cwd: cwd, cwdbase: true, dot: true})
-        .pipe(vfs.dest(dest))
-        .on('end', function() {
-            console.log(chalk.green('peak: building ok'));
+      }])
+        .then(function (twoAnswers) {
+          console.log(firstAnswers, twoAnswers);
+          const dest = path.join(process.cwd(), arg);
+          const boilerplates = twoAnswers.language === 'ts' ? `${firstAnswers.react}-ts` : firstAnswers.react
+          const cwd = path.join(__dirname, '../boilerplates/', boilerplates);
+          mkdirpSync(dest);
+          writeJsonSync(dest + '/peak.json', Object.assign(
+            require(path.join(__dirname, '../peak.json')),
+            { language: twoAnswers.language }
+          ));
+          copySync(path.join(__dirname, '../config'), dest + '/config', { overwrite: true });
+          copySync(path.join(__dirname, '../bin'), dest + '/bin', { overwrite: true });
+          vfs.src(['**/*', '!node_modules/**/*'], { cwd: cwd, cwdbase: true, dot: true })
+            .pipe(vfs.dest(dest))
+            .on('end', function () {
+              console.log(chalk.green('peak: building ok'));
+            });
         });
     });
 }

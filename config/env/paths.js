@@ -25,6 +25,7 @@ module.exports = {
   app_dll_dllConfigJson: resolveApp('dll/dll-config.json'),
   app_src: resolveApp('src'),
   app_src_indexJs: resolveApp('src/index.js'),
+  app_src_indexTsx: resolveApp('src/index.tsx'),
   app_src_indexHtml: resolveApp('src/index.html'),
   app_mock: resolveApp('mock'),
   app_packageJson: resolveApp('package.json'),

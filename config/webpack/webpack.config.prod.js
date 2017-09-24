@@ -11,8 +11,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
-// const CopyWebpackPlugin = require('copy-webpack-plugin');
-// const CleanWebpackPlugin = require('clean-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const InterpolateHtmlPlugin = require('../utils/InterpolateHtmlPlugin');
@@ -24,18 +22,21 @@ const env = require('../env/env');
 const peak = require('../../peak.json');
 
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
+const entry = peak.language === 'js' ? paths.app_src_indexJs : paths.app_src_indexTsx
 
 const config = {
   bail: true,
   target: 'web',
   devtool: 'source-map',
-  entry: {
+  entry: Object.assign({
     app: [
       require.resolve('../utils/polyfills.js'),
-      paths.app_src_indexJs,
+      entry,
     ],
-    common: peak.compiler_commons,
-  },
+  }, {
+    ...peak.compiler_commons.length !== 0 ?
+    {common: peak.compiler_commons,} : {},
+  }),
   output: {
     path: paths.app_build,
     publicPath: peak.public_path,
@@ -47,7 +48,7 @@ const config = {
         .replace(/\\/g, '/'),
   },
   resolve: {
-    extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx', '.ts', '.tsx'],
+    extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx', 'ts', 'tsx'],
     plugins: [
       new ModuleScopePlugin(paths.app_src, [paths.app_packageJson]),
     ],
@@ -56,7 +57,7 @@ const config = {
   module: {
     strictExportPresence: true,
     rules: [
-      {
+      {...peak.language === 'js' ? {
         test: /\.(js|jsx)$/,
         exclude: [/node_modules/, /bin/, /build/, /config/, /dll/, /mock/, /public/],
         enforce: 'pre',
@@ -69,7 +70,15 @@ const config = {
           },
         }],
         include: paths.app_src,
-      },
+      } : {
+        test: /\.(ts|tsx)$/,
+        exclude: [/node_modules/, /bin/, /build/, /config/, /dll/, /mock/, /public/],
+        enforce: 'pre',
+        use: [{
+          loader: require.resolve('tslint-loader'),
+        }],
+        include: paths.app_src,
+      }},
       {
         oneOf: [
           {
@@ -131,9 +140,15 @@ const config = {
             }),
           },
           {
-            test: /\.(js|jsx)$/,
-            include: paths.app_src,
-            loader: ['happypack/loader?id=jsx'],
+            ...peak.language === 'js' ? {
+              test: /\.(js|jsx)$/,
+              include: paths.app_src,
+              loader: 'happypack/loader?id=jsx',
+            } : {
+              test: /\.(ts|tsx)$/,
+              include: paths.app_src,
+              loader: 'awesome-typescript-loader',
+            },
           },
           {
             loader: require.resolve('file-loader'),
@@ -147,13 +162,6 @@ const config = {
     ],
   },
   plugins: [
-    // 多线程加速代码构建
-    new HappyPack({
-      id: 'jsx',
-      loaders: ['babel-loader'],
-      threadPool: happyThreadPool,
-      verbose: true,
-    }),
     // webpack 2.x 默认配置 为组件和模块分配ID
     // new webpack.optimize.OccurenceOrderPlugin();
     // webpack 2.x 移除 查找相等或近似的模块，去除生成的文件中出现重复的模块
@@ -225,16 +233,6 @@ const config = {
     }),
     // service worker
     new SWPrecacheWebpackPlugin(swConfig),
-    // copy 文件
-    // new CopyWebpackPlugin([{
-    //   context: paths.app_public,
-    //   from: '**/*',
-    //   to: paths.app_build,
-    // }]),
-    // 清除文件夹
-    // new CleanWebpackPlugin(['build'], {
-    //   root: path.resolve(__dirname, '../../')
-    // })
   ],
   node: {
     dgram: 'empty',
@@ -244,6 +242,23 @@ const config = {
     child_process: 'empty',
   },
 };
+
+if (peak.language === 'js') {
+  config.plugins.push(
+    // 多线程加速代码构建
+    new HappyPack({
+      id: 'jsx',
+      loaders: ['babel-loader'],
+      threadPool: happyThreadPool,
+      verbose: true,
+    })
+  )
+} else {
+  const { CheckerPlugin } = require('awesome-typescript-loader');
+  config.plugins.push(
+    new CheckerPlugin()
+  )
+}
 
 if (peak.compiler_vendors.length !== 0) {
   config.plugins.push(

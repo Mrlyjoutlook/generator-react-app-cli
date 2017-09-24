@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "outDir": "build", // 构建输出目录
+    "module": "commonjs", // 使用 commonjs 模块标准
+    "target": "es5", // 编译目标平台
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "sourceMap": true, // 使 TypeScript 生成 sourcemaps
+    "allowJs": true,
+    "jsx": "react", // 支持 react
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": false, // 是否不允许当this表达式的值为any类型
+    "noImplicitAny": false, // 是否不允许any类型
+    "strictNullChecks": false, // 是否允许null和undefined值不包含在任何类型里
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+    "bin",
+    "config",
+    "dll",
+    "mock",
+    "public"
+  ],
+  "types": [
+    "typePatches"
+  ]
+}
