@@ -19,7 +19,7 @@ const isLocalhost = Boolean(
 export default function register(updateCallBack) {
   // 生产环境，浏览器支持service worker
   if (__PROD__ && 'serviceWorker' in navigator) {
-    const publicUrl = new URL(process.env.PUBLIC_URL, window.location);
+    const publicUrl = new URL('/', window.location.origin);
     // 不同源情况下service work不支持
     if (publicUrl.origin !== window.location.origin) {
       return;

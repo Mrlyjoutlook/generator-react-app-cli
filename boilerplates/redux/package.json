@@ -1,7 +1,7 @@
 {
-  "name": "create-react-generator",
-  "version": "0.3.0",
-  "description": "",
+  "name": "react",
+  "version": "0.4.0",
+  "description": "MRLYJ - React Redux Starter Kit",
   "main": "index.js",
   "scripts": {
     "dev": "better-npm-run dev",

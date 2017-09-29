@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
 import './index.less';
 
-class Header extends PureComponent {
+class Header extends React.PureComponent<any, any>  {
   render() {
     return (
       <div className="header">

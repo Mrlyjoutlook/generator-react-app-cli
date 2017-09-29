@@ -1,6 +1,6 @@
 
 {
-  "version": "0.3.0",
+  "version": "0.4.0",
   "language": "js",
 
   "bundleAnalyzer": false,
@@ -13,7 +13,7 @@
 
   "globals": {},
   "resolve_alias": {
-    "lazilyload": "./src/utils/lazilyload"
+    "utils": "./src/utils"
   },
   "public_path": "/",
   "js_path": "static/js/",

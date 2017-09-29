@@ -1,6 +1,6 @@
 {
   "name": "generator-react-app-cli",
-  "version": "0.2.2",
+  "version": "0.4.0",
   "description": "Is a cli for creating react project projects work.",
   "bin": {
     "peak": "./command/index.js"
@@ -36,6 +36,6 @@
     "eslint": "^4.6.1"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=7.6.0"
   }
 }

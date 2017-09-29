@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import './index.less';
 
-class Home extends Component {
+class Home extends React.PureComponent<any, any>  {
   render() {
     return (
       <div className="home">
@@ -21,6 +21,5 @@ class Home extends Component {
     );
   }
 }
-
 
 export default Home;

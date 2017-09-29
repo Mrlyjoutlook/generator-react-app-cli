@@ -26,7 +26,7 @@ if (peak.version === peakFile.version) {
         console.log('     ' + chalk.green('The local version is not the same as the current version!\n'));
         console.log(chalk.green('peak: update...'));
 
-        const newFile = Object.assign(peakFile, peak);
+        const newFile = Object.assign(peakFile, peak, { language: peakFile.language });
         writeJsonSync(curPath + '/peak.json', newFile);
         copySync(path.join(__dirname, '../config'), curPath + '/config', { overwrite: true });
         copySync(path.join(__dirname, '../bin'), curPath + '/bin', { overwrite: true });

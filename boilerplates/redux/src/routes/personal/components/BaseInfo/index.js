@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LazilyLoadFactory, importLazy } from 'lazilyload';
+import { LazilyLoadFactory, importLazy } from 'utils/lazilyload';
 
 class BaseInfo extends Component {
   render() {

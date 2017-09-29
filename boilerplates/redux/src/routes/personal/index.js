@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { injectReducer } from '../../store/reducers';
-import LazilyLoad, { importLazy } from 'lazilyload';
+import LazilyLoad, { importLazy } from 'utils/lazilyload';
 
 export default function PersonalRoute({ store, ...props }) {
   return (

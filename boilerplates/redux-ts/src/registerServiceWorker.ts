@@ -11,15 +11,18 @@ const isLocalhost = Boolean(
     ),
 );
 
+interface UpdateParam {
+  (): object;
+}
 
 /**
  * 注册入口
  * @param {Funtion} updateCallBack 更新回调函数，第一次注册不会触发，后面更新会触发
  */
-export default function register(updateCallBack) {
+export default function register(updateCallBack: UpdateParam) {
   // 生产环境，浏览器支持service worker
   if (__PROD__ && 'serviceWorker' in navigator) {
-    const publicUrl = new URL(process.env.PUBLIC_URL, window.location);
+    const publicUrl = new URL('/', window.location.origin);
     // 不同源情况下service work不支持
     if (publicUrl.origin !== window.location.origin) {
       return;
@@ -44,7 +47,7 @@ export default function register(updateCallBack) {
  * @param {String} swUrl
  * @param {Funtion} updateCallBack
  */
-function registerValidSW(swUrl, updateCallBack) {
+function registerValidSW(swUrl: string, updateCallBack: UpdateParam) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
@@ -65,7 +68,7 @@ function registerValidSW(swUrl, updateCallBack) {
     });
 }
 
-function checkValidServiceWorker(swUrl, updateCallBack) {
+function checkValidServiceWorker(swUrl: string, updateCallBack: UpdateParam) {
   // 校验service worker是否被创建
   fetch(swUrl)
     .then((response) => {

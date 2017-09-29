@@ -1,9 +1,10 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
-import makeRootReducer from './reducers';
+import { makeRootReducer } from './reducers';
+import { createStoreType, StoreObj } from './index.types';
 
-export default (initialState = {}) => {
+export const createStoreFactory: createStoreType<any> = (initialState = {}) => {
   // create saga middleware
   const sagaMiddleware = createSagaMiddleware();
 
@@ -23,7 +24,7 @@ export default (initialState = {}) => {
   }
 
   // Store Instantiation and HMR Setup
-  const store = createStore(
+  const store: StoreObj = createStore(
     makeRootReducer({}),
     initialState,
     composeEnhancers(
@@ -32,14 +33,14 @@ export default (initialState = {}) => {
     ),
   );
 
-  // store.asyncReducers = {};
+  store.asyncReducers = {};
 
-  // if (module.hot) {
-  //   module.hot.accept('./reducers', () => {
-  //     const reducers = require('./reducers').default;
-  //     store.replaceReducer(reducers(store.asyncReducers));
-  //   });
-  // }
+  if (module['hot']) {
+    module['hot'].accept('./reducers', () => {
+      const reducers = require('./reducers').default;
+      store.replaceReducer(reducers(store.asyncReducers));
+    });
+  }
 
   return {
     store,

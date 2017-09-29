@@ -3,18 +3,18 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-// import registerServiceWorker from './registerServiceWorker';
-import createStore from './store/createStore';
+import registerServiceWorker from './registerServiceWorker';
+import { createStoreFactory } from './store';
 // import rootSaga from './saga';
 import App from './containers/App';
-// import updataPrompt from './components/UpDataPrompt';
+import updataPrompt from './components/UpDataPrompt';
 
 // perf
 window.Perf = __DEV__ ? require('react-addons-perf') : {};
 
 // init state
-const initialState: object = window.INITIAL_STATE;
-const { store } = createStore(initialState);
+const initialState: object = window.INITIAL_STATE || {};
+const { store } = createStoreFactory(initialState);
 
 // run saga
 // runSaga();
@@ -45,4 +45,4 @@ if (__DEV__) {
 render(App);
 
 // register service worker
-// registerServiceWorker(updataPrompt);
+registerServiceWorker(updataPrompt);

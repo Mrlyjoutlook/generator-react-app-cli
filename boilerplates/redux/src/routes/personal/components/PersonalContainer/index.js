@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { object } from 'prop-types';
 import BaseInfo from '../BaseInfo';
-import { lazilyLoadComponent } from 'lazilyload';
+import { lazilyLoadComponent } from 'utils/lazilyload';
 import './index.less';
 
 class PersonalContainer extends Component {

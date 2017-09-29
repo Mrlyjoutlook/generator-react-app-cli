@@ -255,9 +255,17 @@ if (peak.language === 'js') {
   )
 } else {
   const { CheckerPlugin } = require('awesome-typescript-loader');
+  config.module.rules.push(
+    {
+      test: /\.js$/,
+      enforce: "pre",
+      include: paths.app_src,
+      loader: require.resolve('source-map-loader'),
+    }
+  );
   config.plugins.push(
     new CheckerPlugin()
-  )
+  );
 }
 
 if (peak.compiler_vendors.length !== 0) {

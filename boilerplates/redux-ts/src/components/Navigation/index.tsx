@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import './index.less';
 import { loginRoute, personalRoute } from '../../config/routesConfig';
 
-class Navigation extends Component {
+class Navigation extends React.Component<any, any> {
   render() {
     const styleObj = {
       activeStyle: { color: '#ace9f1' },
@@ -14,7 +14,7 @@ class Navigation extends Component {
     };
     return (
       <div className="navigation">
-        <NavLink exact to="/" {...styleObj}>Home</NavLink>
+        <NavLink exact={true} to="/" {...styleObj}>Home</NavLink>
         <NavLink to={loginRoute.path} {...styleObj}>Login</NavLink>
         <NavLink to={personalRoute.path} {...styleObj}>Personal</NavLink>
         <NavLink to="/mrlyj" {...styleObj}>Not Found</NavLink>

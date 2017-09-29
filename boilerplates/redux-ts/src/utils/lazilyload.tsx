@@ -1,7 +1,32 @@
-import React from 'react';
+/**
+ * 在typescript module 为commonjs情况下，部分使用import()会出现async编译成sync的情况
+ * if use
+ *    需要吧module设置成amd，但chunkfilename部分情况下会失效
+ * 请可以使用bundle.tsx搭配bundle-loader插件
+ * 用法和本模块一致
+ */
+
+import * as React from 'react';
 import PropTypes from 'prop-types';
 
-class LazilyLoad extends React.Component {
+interface ModulesObj {
+  [propName: string]: () => Promise<any>;
+}
+
+interface PropsTypes {
+  children: PropTypes.func.isRequired;
+  modules: ModulesObj;
+}
+
+interface StateTypes {
+  isLoaded: boolean;
+  modules?: object;
+}
+
+class LazilyLoad extends React.Component<PropsTypes, StateTypes> {
+
+  _isMounted: boolean;
+
   constructor() {
     super();
     this.state = {
@@ -14,7 +39,7 @@ class LazilyLoad extends React.Component {
     this.load();
   }
 
-  componentDidUpdate(previous) {
+  componentDidUpdate(previous: PropsTypes) {
     const shouldLoad = !!Object.keys(this.props.modules).filter((key) => {
       return this.props.modules[key] !== previous.modules[key];
     }).length;
@@ -41,23 +66,23 @@ class LazilyLoad extends React.Component {
         return agg;
       }, {})))
       .then((result) => {
-        if (!this._isMounted) return null;
+        if (!this._isMounted) {
+          return null;
+        }
         this.setState({ modules: result, isLoaded: true });
       });
   }
 
   render() {
-    if (!this.state.isLoaded) return null;
+    if (!this.state.isLoaded) {
+      return null;
+    }
     return React.Children.only(this.props.children(this.state.modules));
   }
 }
 
-LazilyLoad.propTypes = {
-  children: PropTypes.func.isRequired,
-};
-
-export const LazilyLoadFactory = (Component, modules) => {
-  return (props) => {
+export const lazilyLoadFactory = (Component, modules) => {
+  return function LazilyLoadFactory(props: any) {
     return (
       <LazilyLoad modules={modules}>
         {mods => <Component {...mods} {...props} />}
@@ -66,14 +91,24 @@ export const LazilyLoadFactory = (Component, modules) => {
   };
 };
 
+interface LoadStateTypes {
+  Component: null | React.ReactType;
+}
+
 export const lazilyLoadComponent = loadComponent => (
-  class LazilyLoadComponent extends React.Component {
-    state = {
-      Component: null,
+  class LazilyLoadComponent extends React.Component<any, LoadStateTypes> {
+
+    constructor() {
+      super();
+      this.state = {
+        Component: null,
+      };
     }
 
     componentWillMount() {
-      if (this.hasLoadedComponent()) return;
+      if (this.hasLoadedComponent()) {
+        return;
+      }
 
       loadComponent()
         .then(module => module.default)
