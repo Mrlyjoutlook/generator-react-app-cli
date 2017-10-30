@@ -49,7 +49,6 @@ if (!arg) {
         ],
       }])
         .then(function (twoAnswers) {
-          console.log(firstAnswers, twoAnswers);
           const dest = path.join(process.cwd(), arg);
           const boilerplates = twoAnswers.language === 'ts' ? `${firstAnswers.react}-ts` : firstAnswers.react
           const cwd = path.join(__dirname, '../boilerplates/', boilerplates);
