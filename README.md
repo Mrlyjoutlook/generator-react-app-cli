@@ -10,6 +10,7 @@
 - [Requirements](#requirements)
 - [Use](#use)
 - [Features](#features)
+- [Plan](#plan)
 - [ConfigFile](#ConfigFile)
 - [License](#License)
 - [End](#end)
@@ -50,10 +51,19 @@ $ npm update
 
 ## Features
 - support redux boilerplate.
-- support mobx boilerplate(Development ing).
 - support service work.
 - support typescript.
 - support command update config(But don’t modify files in the current config directory).
+
+## Plan
+Future plans
+
+- [ ] support mobx boilerplate(Development ing).
+- [ ] support srr page(Development ing).
+
+## change log
+
+- `0.4.0` add redux boilerplate about typescript.
 
 ## ConfigFile
 Please edit peak.json.
