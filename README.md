@@ -60,6 +60,7 @@ Future plans
 
 - [ ] support mobx boilerplate(Development ing).
 - [ ] support srr page(Development ing).
+- [ ] support multi page.
 
 ## change log
 
