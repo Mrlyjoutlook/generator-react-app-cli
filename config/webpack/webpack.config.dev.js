@@ -5,7 +5,6 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const vConsolePlugin = require('vconsole-webpack-plugin');
@@ -13,6 +12,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InterpolateHtmlPlugin = require('../utils/InterpolateHtmlPlugin');
 const ModuleScopePlugin = require('../utils/ModuleScopePlugin');
+const eslintFormatter = require('../utils/eslintFormatter');
 const paths = require('../env/paths');
 const env = require('../env/env');
 const peak = require('../../peak.json');
@@ -53,7 +53,7 @@ const config = {
         use: [{
           loader: require.resolve('eslint-loader'),
           options: {
-            formatter: require.resolve('../utils/eslintFormatter'),
+            formatter: eslintFormatter,
             eslintPath: require.resolve('eslint'),
             ignore: ["bin", "config", "dll", "mock", "node_modules", "public"],
           },
@@ -92,19 +92,9 @@ const config = {
               }, {
                 loader: require.resolve('postcss-loader'),
                 options: {
-                  ident: 'postcss',
-                  plugins: () => [
-                    require('postcss-flexbugs-fixes'),
-                    autoprefixer({
-                      browsers: [
-                        '>1%',
-                        'last 4 versions',
-                        'Firefox ESR',
-                        'not ie < 9', // React doesn't support IE8 anyway
-                      ],
-                      flexbox: 'no-2009',
-                    }),
-                  ],
+                  config: {
+                    path: path.resolve(__dirname, '../../'),
+                  },
                 },
               },
             ],
@@ -120,8 +110,14 @@ const config = {
                   minimize: true,
                   sourceMap: true,
                 },
-              },
-              {
+              }, {
+                loader: require.resolve('postcss-loader'),
+                options: {
+                  config: {
+                    path: path.resolve(__dirname, '../../'),
+                  },
+                },
+              }, {
                 loader: require.resolve('less-loader'),
                 options: {
                   noIeCompat: true,

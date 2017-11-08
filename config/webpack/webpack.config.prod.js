@@ -11,7 +11,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const autoprefixer = require('autoprefixer');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const InterpolateHtmlPlugin = require('../utils/InterpolateHtmlPlugin');
 const ModuleScopePlugin = require('../utils/ModuleScopePlugin');
@@ -103,19 +102,9 @@ const config = {
               }, {
                 loader: require.resolve('postcss-loader'),
                 options: {
-                  ident: 'postcss',
-                  plugins: () => [
-                    require('postcss-flexbugs-fixes'),
-                    autoprefixer({
-                      browsers: [
-                        '>1%',
-                        'last 4 versions',
-                        'Firefox ESR',
-                        'not ie < 9', // React doesn't support IE8 anyway
-                      ],
-                      flexbox: 'no-2009',
-                    }),
-                  ],
+                  config: {
+                    path: path.resolve(__dirname, '../../'),
+                  },
                 },
               }],
             }),
@@ -130,6 +119,13 @@ const config = {
                   importLoaders: 1,
                   minimize: true,
                   sourceMap: true,
+                },
+              }, {
+                loader: require.resolve('postcss-loader'),
+                options: {
+                  config: {
+                    path: path.resolve(__dirname, '../../'),
+                  },
                 },
               }, {
                 loader: require.resolve('less-loader'),
