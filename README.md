@@ -11,6 +11,7 @@
 - [Use](#use)
 - [Features](#features)
 - [Plan](#plan)
+- [log]()
 - [ConfigFile](#ConfigFile)
 - [License](#License)
 - [End](#end)
@@ -45,8 +46,8 @@ $ npm update
 - `npm update`，升级需要先更新**generator-react-app-cli**，升级会覆盖/config、/bin，如果有修改过其下的文件，请备份。
 
 <div>
-  <img src="https://github.com/Mrlyjoutlook/generator-react-app-cli/blob/master/picture/terminal.png" width="450px">
-  <img src="https://github.com/Mrlyjoutlook/generator-react-app-cli/blob/master/picture/terminal1.png" width="450px">
+  <img src="https://github.com/Mrlyjoutlook/generator-react-app-cli/blob/master/doc/terminal.png" width="450px">
+  <img src="https://github.com/Mrlyjoutlook/generator-react-app-cli/blob/master/doc/terminal1.png" width="450px">
 </div>
 
 ## Features
@@ -61,12 +62,6 @@ Future plans
 - [ ] support mobx boilerplate(Development ing).
 - [ ] support srr page(Development ing).
 - [ ] support multi page.
-
-## change log
-
-- `0.5.0` add preloadWebpack
-- `0.4.1` fix postcss config bug、 webpack error formatter is not function.
-- `0.4.0` add redux boilerplate about typescript.
 
 ## ConfigFile
 Please edit peak.json.
@@ -107,11 +102,6 @@ prebrowsing
 - preload：预加载，主动通知浏览器获取本页的关键资源，只是预加载，加载资源后并不会执行；
 
 前三种浏览器默认内置的优化，`prefetch`和`preload`需要根据实际开发情况。[美团点评Web静态资源缓存及优化](https://juejin.im/post/5a098b5bf265da431a42b227)
-
-作者：美团点评点餐
-链接：https://juejin.im/post/5a098b5bf265da431a42b227
-来源：掘金
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 ## License
 

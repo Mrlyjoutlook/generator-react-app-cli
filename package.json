@@ -5,7 +5,9 @@
   "bin": {
     "peak": "./command/index.js"
   },
-  "scripts": {},
+  "scripts": {
+    "test": ""
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:Mrlyjoutlook/generator-react-app-cli.git"
@@ -33,7 +35,8 @@
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-eslint": "^7.2.3",
-    "eslint": "^4.6.1"
+    "eslint": "^4.6.1",
+    "mocha": "^4.0.1"
   },
   "engines": {
     "node": ">=7.6.0"
