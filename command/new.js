@@ -38,7 +38,7 @@ if (!arg) {
         choices: [
           {
             key: 'ts',
-            name: 'typescript(如果没问题的话，推荐使用typescript开发)',
+            name: 'typescript(推荐使用typescript开发)',
             value: 'ts',
           },
           {

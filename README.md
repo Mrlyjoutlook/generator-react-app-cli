@@ -3,6 +3,7 @@
 > Is a cli for creating react project projects work.  
 
 [![status](https://img.shields.io/badge/version-0.4.1-brightgreen.svg)](https://www.npmjs.com/package/generator-react-app-cli)
+[![Build Status](https://www.travis-ci.org/Mrlyjoutlook/generator-react-app-cli.svg?branch=master)
 
 有时候我们在使用`create-react-app`时候，会发现其缺少定制功能，从而我们需要从`node_modules`中寻找对应的文件进行修改，但团队开发中不能确保`node_modules`中对应的文件的大家都一致，所以我们需要扩展这功能，不得不承认`create-react-app`是一款很优秀的脚手架。本项目是基于`create-react-app`和社区等优秀的脚手架，把所有项目的配置文件均放在`config`目录下，提供给开发者自定修改，但大部分情况，甚至最好不要修改config目录下的文件，因为项目提供配置文件升级的功能，所以会覆盖掉你修改的文件。作者会把实用的功能均通过配置文件`peak.json`提供给开发者，你也可以把需求和好的建议通过`issues`告诉我。
 
@@ -11,7 +12,7 @@
 - [Use](#use)
 - [Features](#features)
 - [Plan](#plan)
-- [log]()
+- [log](https://github.com/Mrlyjoutlook/generator-react-app-cli/tree/master/doc/log)
 - [ConfigFile](#ConfigFile)
 - [License](#License)
 - [End](#end)
