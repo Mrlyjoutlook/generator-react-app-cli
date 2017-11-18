@@ -64,6 +64,7 @@ Future plans
 
 ## change log
 
+- `0.5.0` add preloadWebpack
 - `0.4.1` fix postcss config bug、 webpack error formatter is not function.
 - `0.4.0` add redux boilerplate about typescript.
 
@@ -88,7 +89,29 @@ Please edit peak.json.
 |html|模板变量，可以在html中`<script src="%键名%"></script>`输出|默认`{}`|
 |compiler_commons|公用资源打包，建议自定义公用的js代码|默认`[]`|
 |compiler_vendors|公用资源打包，建议打包第三方的依赖，使用的是`webpack Dll相关功能`|默认`[]`,没值该功能关闭|
-|sw|service work的配置|默认`{}`|
+|sw|[service work的配置](https://github.com/goldhand/sw-precache-webpack-plugin), 内置配置`./config/sw/sw.config.js`|默认`{}`|
+|pre|[PreloadWebpackPlugin](https://github.com/GoogleChrome/preload-webpack-plugin)插件，当无配置时候默认关闭该功能|默认`{}`|
+
+## Describe
+describe about config
+
+### pre
+在资源加载上有时需要**prebrowsing**，提前加载或者缓存文件，也是静态资源加载优化的一种方法。
+
+prebrowsing
+
+- dns-prefetch：DNS预解析，告诉浏览器未来我们可能从某个特定的 URL 获取资源，当浏览器真正使用到该域中的某个资源时就可以尽快地完成 DNS 解析。多在使用第三方资源时使用。
+- preconnect：预连接，完成 DNS 预解析同时还将进行 TCP 握手和建立传输层协议。
+- prerender：预渲染，预先加载文档的所有资源，类似于在一个隐藏的 tab 页中打开了某个链接 – 将下载所有资源、创建 DOM 结构、完成页面布局、应用 CSS 样式和执行 JavaScript 脚本等。
+- prefetch：预获取，使用 prefetch 声明的资源是对浏览器的提示，暗示该资源可能『未来』会被用到，适用于对可能跳转到的其他路由页面进行资源缓存。被 prefetch 的资源的加载时机由浏览器决定，一般来说优先级较低，会在浏览器『空闲』时进行下载。
+- preload：预加载，主动通知浏览器获取本页的关键资源，只是预加载，加载资源后并不会执行；
+
+前三种浏览器默认内置的优化，`prefetch`和`preload`需要根据实际开发情况。[美团点评Web静态资源缓存及优化](https://juejin.im/post/5a098b5bf265da431a42b227)
+
+作者：美团点评点餐
+链接：https://juejin.im/post/5a098b5bf265da431a42b227
+来源：掘金
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 ## License
 
