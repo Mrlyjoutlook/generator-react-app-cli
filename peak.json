@@ -1,6 +1,6 @@
 
 {
-  "version": "0.4.1",
+  "version": "0.5.0",
   "language": "js",
 
   "bundleAnalyzer": false,
@@ -22,5 +22,6 @@
   "html": {},
   "compiler_commons": [],
   "compiler_vendors": [],
-  "sw": {}
+  "sw": {},
+  "pre": {}
 }

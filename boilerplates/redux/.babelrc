@@ -1,16 +1,22 @@
 {
   "presets": [
-    ["es2015", {"modules": false}],
+    ["env", {
+      "modules": false,
+      "targets": {
+        "browsers": ["last 2 versions", "safari >= 7"]
+      },
+      "useBuiltIns": "usage"
+    }],
     "stage-0",
     "react"
   ],
   "plugins": [
-      ["transform-runtime", {
-        "helpers": false,
-        "polyfill": false,
-        "regenerator": true,
-        "moduleName": "babel-runtime"
-      }]
+      // ["transform-runtime", {
+      //   "helpers": false,
+      //   "polyfill": false,
+      //   "regenerator": true,
+      //   "moduleName": "babel-runtime"
+      // }]
   ],
   "env": {
     "production": {

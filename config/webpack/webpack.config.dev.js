@@ -13,25 +13,27 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InterpolateHtmlPlugin = require('../utils/InterpolateHtmlPlugin');
 const ModuleScopePlugin = require('../utils/ModuleScopePlugin');
 const eslintFormatter = require('../utils/eslintFormatter');
+const { getEntry, matchKey } = require('../utils/entry');
 const paths = require('../env/paths');
 const env = require('../env/env');
 const peak = require('../../peak.json');
 
-const entry = peak.language === 'js' ? paths.app_src_indexJs : paths.app_src_indexTsx;
+const entry = peak.language === 'js' ? getEntry('../../src', [
+  require.resolve('../utils/polyfills.js'),
+  'react-hot-loader/patch',
+  `webpack-hot-middleware/client?path=${peak.public_path}__webpack_hmr`,
+]) : paths.app_src_indexTsx;
+
+const pathsKey = Object.keys(paths);
 
 const config = {
   devtool: 'cheap-module-source-map',
-  entry: [
-    require.resolve('../utils/polyfills.js'),
-    'react-hot-loader/patch',
-    `webpack-hot-middleware/client?path=${peak.public_path}__webpack_hmr`,
-    entry,
-  ],
+  entry,
   output: {
     path: paths.app_build,
     pathinfo: true,
-    filename: 'static/js/bundle.js',
-    chunkFilename: 'static/js/[name].chunk.js',
+    filename: peak.js_path + '[name].js',
+    chunkFilename: peak.js_path + '[name].chunk.js',
     publicPath: peak.public_path,
     devtoolModuleFilenameTemplate: info =>
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
@@ -156,11 +158,6 @@ const config = {
   plugins: [
     // 模板替换
     new InterpolateHtmlPlugin(env.html),
-    // html
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: paths.app_src_indexHtml,
-    }),
     // css
     new ExtractTextPlugin({
       filename: 'static/css/[name].[contenthash:8].css',
@@ -221,6 +218,19 @@ if (peak.bundleAnalyzer) {
   config.plugins.push(
     // 包大小分析工具
     new BundleAnalyzerPlugin()
+  );
+}
+
+for (let key in entry) {
+  config.plugins.push(
+    // html
+    new HtmlWebpackPlugin({
+      inject: true,
+      filename: `${paths.app_build}/${key}.html`,
+      template: paths[matchKey(pathsKey, key)[0]],
+      chunksSortMode: 'none',
+      chunks: [key],
+    })
   );
 }
 

@@ -16,7 +16,17 @@ const alias = ((obj) => {
   return result;
 })(peak.resolve_alias);
 
-module.exports = {
+const entryObj = fs.readdirSync(path.resolve(__dirname, '../../src'))
+  .filter(filename =>
+    /\.(js|jsx)$/.test(filename) || /\.html$/.test(filename)
+  )
+  .reduce((pre,cur)=>{
+    const name = cur.split('.');
+    pre[`app_src_${name[0]}${name[1].substring(0,1).toUpperCase() + name[1].substring(1)}`] = resolveApp('src/' + cur);
+    return pre;
+  }, {});
+
+module.exports = Object.assign({
   app: resolveApp(''),
   app_build: resolveApp('build'),
   app_public: resolveApp('public'),
@@ -24,10 +34,7 @@ module.exports = {
   app_dll_dllManifestJson: resolveApp('dll/dll-manifest.json'),
   app_dll_dllConfigJson: resolveApp('dll/dll-config.json'),
   app_src: resolveApp('src'),
-  app_src_indexJs: resolveApp('src/index.js'),
-  app_src_indexTsx: resolveApp('src/index.tsx'),
-  app_src_indexHtml: resolveApp('src/index.html'),
   app_mock: resolveApp('mock'),
   app_packageJson: resolveApp('package.json'),
   alias,
-};
+}, entryObj);

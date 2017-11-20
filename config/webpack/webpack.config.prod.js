@@ -4,6 +4,7 @@
 'use strict';
 
 const path = require('path');
+const _ = require('lodash');
 const webpack = require('webpack');
 const os = require('os');
 const HappyPack = require('happypack');
@@ -12,29 +13,29 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const InterpolateHtmlPlugin = require('../utils/InterpolateHtmlPlugin');
 const ModuleScopePlugin = require('../utils/ModuleScopePlugin');
 const eslintFormatter = require('../utils/eslintFormatter');
+const { getEntry, matchKey } = require('../utils/entry');
 const swConfig = require('../sw/sw.config');
 const paths = require('../env/paths');
 const env = require('../env/env');
 const peak = require('../../peak.json');
 
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
-const entry = peak.language === 'js' ? paths.app_src_indexJs : paths.app_src_indexTsx
+const entry = peak.language === 'js' ? getEntry('../../src', [
+  require.resolve('../utils/polyfills.js'),
+]) : paths.app_src_indexTsx;
+const pathsKey = Object.keys(paths);
 
 const config = {
   bail: true,
   target: 'web',
   devtool: 'source-map',
-  entry: Object.assign({
-    app: [
-      require.resolve('../utils/polyfills.js'),
-      entry,
-    ],
-  }, {
+  entry: Object.assign(entry, {
     ...peak.compiler_commons.length !== 0 ?
-    {common: peak.compiler_commons,} : {},
+    {common: peak.compiler_commons} : {},
   }),
   output: {
     path: paths.app_build,
@@ -204,23 +205,6 @@ const config = {
     new webpack.optimize.ModuleConcatenationPlugin(),
     // 模板替换
     new InterpolateHtmlPlugin(env.html),
-    // html
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: paths.app_src + '/index.html',
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        keepClosingSlash: true,
-        minifyJS: true,
-        minifyCSS: true,
-        minifyURLs: true,
-      },
-    }),
     // css
     new ExtractTextPlugin({
       filename: peak.css_path + '[name].[contenthash:8].css',
@@ -283,6 +267,36 @@ if (peak.lodashJS) {
       },
     })
   )
+}
+
+if (!_.isEmpty(peak.pre)) {
+  config.plugins.push(
+    new PreloadWebpackPlugin(peak.pre)
+  )
+}
+
+for (let key in entry) {
+  config.plugins.push(
+    // html
+    new HtmlWebpackPlugin({
+      inject: true,
+      filename: `${paths.app_build}/${key}.html`,
+      template: paths[matchKey(pathsKey, key)[0]],
+      chunks: [key, 'common', 'manifest', 'vendor'],
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true,
+      },
+    })
+  );
 }
 
 module.exports = config;

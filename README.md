@@ -56,13 +56,14 @@ $ npm update
 - support service work.
 - support typescript.
 - support command update config(But don’t modify files in the current config directory).
+- support multi page.
 
 ## Plan
 Future plans
 
 - [ ] support mobx boilerplate(Development ing).
 - [ ] support srr page(Development ing).
-- [ ] support multi page.
+- [x] support multi page.
 
 ## ConfigFile
 Please edit peak.json.
