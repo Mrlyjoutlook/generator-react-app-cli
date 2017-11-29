@@ -1,8 +1,14 @@
 # change log
 
+- [0.5.1](#0.5.1)
 - [0.5.0](#0.5.0)
 - [0.4.1](#0.4.1)
 - [0.4.0](#0.4.0)
+
+## 0.5.1
+- 完善typescript多页面开发
+- 添加bundle-buddy-webpack-plugin插件的功能bundleBuddy
+- fix bug
 
 ## 0.5.0
 - 添加资源预加载功能preloadWebpack插件

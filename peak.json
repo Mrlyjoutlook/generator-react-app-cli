@@ -1,9 +1,10 @@
 
 {
-  "version": "0.5.0",
+  "version": "0.5.1",
   "language": "js",
 
   "bundleAnalyzer": false,
+  "bundleBuddy": false,
   "lodashJS": false,
   "vconsole": false,
 

@@ -22,12 +22,16 @@ const entry = peak.language === 'js' ? getEntry('../../src', [
   require.resolve('../utils/polyfills.js'),
   'react-hot-loader/patch',
   `webpack-hot-middleware/client?path=${peak.public_path}__webpack_hmr`,
-]) : paths.app_src_indexTsx;
+]) : getEntry('../../src', [
+  require.resolve('../utils/polyfills.js'),
+  'react-hot-loader/patch',
+  `webpack-hot-middleware/client?path=${peak.public_path}__webpack_hmr`,
+], true);
 
 const pathsKey = Object.keys(paths);
 
 const config = {
-  devtool: 'cheap-module-source-map',
+  devtool: 'cheap-module-eval-source-map',
   entry,
   output: {
     path: paths.app_build,

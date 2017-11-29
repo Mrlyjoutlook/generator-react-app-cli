@@ -14,6 +14,7 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
+const BundleBuddyWebpackPlugin = require('bundle-buddy-webpack-plugin');
 const InterpolateHtmlPlugin = require('../utils/InterpolateHtmlPlugin');
 const ModuleScopePlugin = require('../utils/ModuleScopePlugin');
 const eslintFormatter = require('../utils/eslintFormatter');
@@ -26,13 +27,15 @@ const peak = require('../../peak.json');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const entry = peak.language === 'js' ? getEntry('../../src', [
   require.resolve('../utils/polyfills.js'),
-]) : paths.app_src_indexTsx;
+]) : getEntry('../../src', [
+  require.resolve('../utils/polyfills.js'),
+], true);
 const pathsKey = Object.keys(paths);
 
 const config = {
   bail: true,
   target: 'web',
-  devtool: 'source-map',
+  devtool: 'cheap-module-source-map',
   entry: Object.assign(entry, {
     ...peak.compiler_commons.length !== 0 ?
     {common: peak.compiler_commons} : {},
@@ -48,7 +51,7 @@ const config = {
         .replace(/\\/g, '/'),
   },
   resolve: {
-    extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx', 'ts', 'tsx'],
+    extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx', '.ts', '.tsx'],
     plugins: [
       new ModuleScopePlugin(paths.app_src, [paths.app_packageJson]),
     ],
@@ -272,6 +275,13 @@ if (peak.lodashJS) {
 if (!_.isEmpty(peak.pre)) {
   config.plugins.push(
     new PreloadWebpackPlugin(peak.pre)
+  )
+}
+
+if (peak.bundleBuddy) {
+  config.plugins.push(
+    // 打包后代码分割依赖包分析
+    new BundleBuddyWebpackPlugin({warnings: false})
   )
 }
 
