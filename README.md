@@ -75,6 +75,7 @@ Please edit peak.json.
 |version|版本号||
 |language|脚本类型|`js` or `ts`|
 |bundleAnalyzer|模块资源大小分析功能|默认`false`|
+|bundleBuddy|打包后各资源文件分析功能|默认`false`|
 |lodashJS|`lodash.Js`按需打包|默认`false`|
 |vconsole|移动端开发提供`console`打印等功能|默认`false`|
 |host||默认`localhost`|
