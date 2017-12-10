@@ -10,22 +10,9 @@
     "stage-0",
     "react"
   ],
-  "plugins": [
-      // ["transform-runtime", {
-      //   "helpers": false,
-      //   "polyfill": false,
-      //   "regenerator": true,
-      //   "moduleName": "babel-runtime"
-      // }]
-  ],
   "env": {
     "production": {
-      "plugins": [
-        ["transform-react-remove-prop-types", {
-          "mode": "wrap",
-          "ignoreFilenames": ["node_modules"]
-        }]
-      ]
+      "presets": ["react-optimize"]
     },
     "development": {
       "plugins": [
