@@ -31,7 +31,7 @@ npm >= 4.x
 
 ```bash
 # Install
-$ npm i create-react-generator -g
+$ npm i generator-react-app-cli -g
 
 # Create app
 $ peak new myapp
