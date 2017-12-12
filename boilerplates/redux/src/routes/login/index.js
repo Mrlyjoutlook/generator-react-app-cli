@@ -1,16 +1,18 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { injectReducer } from '../../store/reducers';
-import LazilyLoad, { importLazy } from 'utils/lazilyload';
+import Bundle from 'utils/bundle';
+
+const loginContainer = require('bundle-loader?lazy&name=login!./components/LoginContainer');
 
 export default function LoginRoute({ store, ...props }) {
   return (
     <Route
       {...props}
       render={() => (
-        <LazilyLoad
+        <Bundle
           modules={{
-            Login: () => importLazy(import(/* webpackChunkName: "login" */ './components/LoginContainer')),
+            Login: loginContainer,
           }}
         >
           {({ Login }) => {
@@ -18,7 +20,7 @@ export default function LoginRoute({ store, ...props }) {
             injectReducer(store, { key: 'login', reducer });
             return <Login />;
           }}
-        </LazilyLoad>
+        </Bundle>
       )}
     />
   );
