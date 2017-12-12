@@ -93,7 +93,15 @@ Please edit peak.json.
 |pre|[PreloadWebpackPlugin](https://github.com/GoogleChrome/preload-webpack-plugin)插件，当无配置时候默认关闭该功能|默认`{}`|
 
 ## Describe
-describe about config
+
+### describe about config
+
+### details
+
+if use react ^16.0.0, you must delete
+```
+window.Perf = __DEV__ ? require('react-addons-perf') : {};
+```
 
 ### pre
 在资源加载上有时需要**prebrowsing**，提前加载或者缓存文件，也是静态资源加载优化的一种方法。
