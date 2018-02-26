@@ -1,27 +1,29 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import Loadable from 'react-loadable';
 import { injectReducer } from '../../store/reducers';
-import LazilyLoad, { importLazy } from 'utils/lazilyload';
+
 
 export default function PersonalRoute({ store, ...props }) {
   return (
     <Route
       {...props}
-      render={() => (
-        <LazilyLoad
-          modules={{
-            Personal: () => importLazy(import(/* webpackChunkName: "personal" */ './components/PersonalContainer')),
-          }}
-        >
-          {({ Personal }) => {
-            const reducer = require('./modules/personalReduer').default;
-            injectReducer(store, { key: 'personal', reducer });
-            return (
-              <Personal />
-            );
-          }}
-        </LazilyLoad>
-      )}
+      component={Loadable.Map({
+        loader: {
+          Personal: () => import(/* webpackChunkName: "personal" */ './components/PersonalContainer'),
+          reducer: () => import(/* webpackChunkName: "personalReduer" */ './modules/personalReduer'),
+        },
+        render(loaded) {
+          const Personal = loaded.Personal.default;
+          const reducer = loaded.reducer.default;
+          injectReducer(store, { key: 'personal', reducer });
+          return <Personal />;
+        },
+        loading() {
+          return <div>Loading...</div>;
+        },
+        delay: 300,
+      })}
     />
   );
 }

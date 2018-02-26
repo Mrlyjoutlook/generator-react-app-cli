@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
+import Loadable from 'react-loadable';
 // import { object } from 'prop-types';
-import BaseInfo from '../BaseInfo';
-import { lazilyLoadComponent } from 'utils/lazilyload';
 import './index.less';
 
 class PersonalContainer extends Component {
@@ -19,7 +18,10 @@ class PersonalContainer extends Component {
   }
 
   asyncComponent = () => {
-    const OtherInfo = lazilyLoadComponent(() => import(/* webpackChunkName: "otherInfo" */ '../OtherInfo'));
+    const OtherInfo = Loadable({
+      loader: () => import(/* webpackChunkName: "otherInfo" */ '../OtherInfo'),
+      loading: () => <div>loading...</div>,
+    });
     return <OtherInfo />;
   }
 
@@ -30,9 +32,7 @@ class PersonalContainer extends Component {
       <div className="personal">
         <p>eg: Click add component</p>
         <div onClick={this.handleOnClick} className="btn">Add</div>
-        <p>eg: load baseInfo.chunk.js</p>
         <p>eg: load otherInfo.chunk.js</p>
-        {visible && <BaseInfo />}
         {visible && this.asyncComponent()}
       </div>
     );

@@ -7,9 +7,6 @@ import createStore from './store/createStore';
 import App from './containers/App';
 import updataPrompt from './components/UpDataPrompt';
 
-// perf
-window.Perf = __DEV__ ? require('react-addons-perf') : {};
-
 // init state
 const initialState = window.INITIAL_STATE;
 const { store } = createStore(initialState);
