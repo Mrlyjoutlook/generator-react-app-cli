@@ -30,8 +30,7 @@ if (__DEV__) {
   if (module.hot) {
     // Setup hot module replacement
     module.hot.accept('./containers/App', () => {
-      const NextApp = require('./containers/App').default;
-      render(NextApp);
+      render(App);
     });
   }
 }

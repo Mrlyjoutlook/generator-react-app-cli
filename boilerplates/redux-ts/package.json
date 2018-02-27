@@ -1,6 +1,6 @@
 {
   "name": "react",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "MRLYJ - React Redux(TypeScript) Starter Kit",
   "main": "index.js",
   "scripts": {

@@ -10,6 +10,7 @@
 **该工具的出发点是不采取过分的抽象和极其复杂的去简化，把大部分通用的功能简化成配置文件出来，同时保留并区分好各类的config文件给开发者去适配所需的场景。**
 
 ## Table of Contents
+
 - [Requirements](#requirements)
 - [Use](#use)
 - [Features](#features)
@@ -46,6 +47,7 @@ $ npm update
 ```
 
 *Remarks*
+
 - `npm update`，升级需要先更新**generator-react-app-cli**，升级会覆盖/config、/bin，如果有修改过其下的文件，请备份。
 
 <div>
@@ -54,6 +56,7 @@ $ npm update
 </div>
 
 ## Features
+
 - support redux/redux(ts) boilerplate.
 - support service work.
 - support typescript.
