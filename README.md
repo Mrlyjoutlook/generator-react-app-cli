@@ -98,10 +98,7 @@ Please edit peak.json.
 
 ### details
 
-if use react ^16.0.0, you must delete
-```
-window.Perf = __DEV__ ? require('react-addons-perf') : {};
-```
+目前typescript开发的话就只能依赖package.json里面标明的版本号，如果升级后会出现一些错误信息，现阶段建议使用es模板。
 
 ### pre
 在资源加载上有时需要**prebrowsing**，提前加载或者缓存文件，也是静态资源加载优化的一种方法。
