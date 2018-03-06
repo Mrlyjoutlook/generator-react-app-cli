@@ -17,6 +17,7 @@
 * [Plan](#plan)
 * [log](https://github.com/Mrlyjoutlook/generator-react-app-cli/tree/master/doc/log)
 * [ConfigFile](#ConfigFile)
+* [DevExperience](#DevExperience)
 * [License](#License)
 * [End](#end)
 
@@ -119,6 +120,10 @@ prebrowsing
 * preload：预加载，主动通知浏览器获取本页的关键资源，只是预加载，加载资源后并不会执行；
 
 前三种浏览器默认内置的优化，`prefetch`和`preload`需要根据实际开发情况。[美团点评 Web 静态资源缓存及优化](https://juejin.im/post/5a098b5bf265da431a42b227)
+
+## DevExperience
+
+* 建议编辑器`vscode`安装`prettier`插件，项目安装`prettier-eslint`，搭配`eslint`会根据 eslint 规范自动代码格式化
 
 ## License
 
