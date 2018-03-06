@@ -1,6 +1,6 @@
 {
   "name": "generator-react-app-cli",
-  "version": "0.5.5",
+  "version": "0.6.0",
   "description": "a cli for creating react project projects work.",
   "bin": {
     "peak": "./command/index.js"
@@ -14,12 +14,7 @@
   },
   "author": "mrlyj <mr.lyj@outlook.com>",
   "license": "MIT",
-  "keywords": [
-    "boilerplates",
-    "react",
-    "cli",
-    "spa"
-  ],
+  "keywords": ["boilerplates", "react", "cli", "spa", "redux", "mobx"],
   "bugs": {
     "url": "https://github.com/Mrlyjoutlook/generator-react-app-cli/issues"
   },

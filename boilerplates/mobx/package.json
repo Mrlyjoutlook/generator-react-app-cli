@@ -1,7 +1,7 @@
 {
   "name": "react",
-  "version": "0.6.0",
-  "description": "MRLYJ - React Redux Starter Kit",
+  "version": "0.5.3",
+  "description": "MRLYJ - React Mobx Starter Kit",
   "main": "index.js",
   "scripts": {
     "dev": "better-npm-run dev",
@@ -23,7 +23,7 @@
     },
     "dev": {
       "command":
-        "nodemon ./bin/dev --ignore bin --ignore build --ignore dll --ignore mock --ignore public --ignore src --ignore node_modules",
+        "nodemon bin/dev --ignore bin --ignore build --ignore dll --ignore mock --ignore public --ignore src --ignore node_modules",
       "env": {
         "DEBUG": "app:*",
         "NODE_ENV": "development"
@@ -65,9 +65,10 @@
   "devDependencies": {
     "autoprefixer": "^7.1.3",
     "babel-core": "^6.26.0",
-    "babel-eslint": "^7.2.3",
+    "babel-eslint": "^8.2.1",
     "babel-loader": "^7.1.2",
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.8",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
@@ -75,6 +76,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "better-npm-run": "^0.1.0",
     "bundle-buddy-webpack-plugin": "^0.3.0",
+    "bundle-loader": "^0.5.5",
     "case-sensitive-paths-webpack-plugin": "^2.1.1",
     "chalk": "1.1.3",
     "compression": "^1.7.0",
@@ -90,7 +92,6 @@
     "eslint-plugin-jsx-a11y": "5.1.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^7.3.0",
-    "eslint-plugin-redux-saga": "^0.4.0",
     "express": "^4.15.4",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
@@ -112,15 +113,16 @@
     "postcss-flexbugs-fixes": "^3.2.0",
     "postcss-loader": "^2.0.6",
     "preload-webpack-plugin": "^2.0.0",
+    "prettier-eslint": "^8.8.1",
     "promise": "^8.0.1",
-    "react-hot-loader": "^3.1.3",
+    "react-hot-loader": "^3.0.0-beta.7",
     "recursive-readdir": "^2.2.1",
     "strip-ansi": "^4.0.0",
     "style-loader": "^0.18.2",
     "sw-precache-webpack-plugin": "^0.11.4",
     "url-loader": "^0.5.9",
     "vconsole-webpack-plugin": "^1.1.2",
-    "webpack": "3.11.0",
+    "webpack": "^3.5.6",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-middleware": "^1.12.0",
     "webpack-hot-middleware": "^2.19.0",
@@ -128,16 +130,13 @@
   },
   "dependencies": {
     "lodash": "^4.17.4",
+    "mobx": "^3.4.1",
+    "mobx-react": "^4.3.5",
     "normalize.css": "^7.0.0",
-    "normalizr": "^3.2.3",
     "prop-types": "^15.5.10",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "react-loadable": "^5.3.1",
-    "react-redux": "^5.0.6",
-    "react-router-dom": "^4.2.2",
-    "redux": "^3.7.2",
-    "redux-saga": "^0.15.6",
-    "redux-thunk": "^2.2.0"
+    "react-router-dom": "^4.2.2"
   }
 }

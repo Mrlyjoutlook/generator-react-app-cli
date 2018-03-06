@@ -1,6 +1,6 @@
 {
   "name": "react",
-  "version": "0.5.5",
+  "version": "0.6.0",
   "description": "MRLYJ - React Redux(TypeScript) Starter Kit",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,8 @@
       }
     },
     "dev": {
-      "command": "nodemon bin/dev --ignore bin --ignore build --ignore dll --ignore mock --ignore public --ignore src --ignore node_modules",
+      "command":
+        "nodemon bin/dev --ignore bin --ignore build --ignore dll --ignore mock --ignore public --ignore src --ignore node_modules",
       "env": {
         "DEBUG": "app:*",
         "NODE_ENV": "development"
