@@ -13,7 +13,6 @@
 ## 0.7.0
 
 * 添加 mobx typescript 模板
-* 重整 redux typescript 模板
 * 修改 webpack typescript 开发配置
 * 由于 @types/react-dom 中 react.d.ts 申明文件有误且会覆盖，故已移除，不影响开发
 
