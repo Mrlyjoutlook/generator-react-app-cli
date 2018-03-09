@@ -1,20 +1,15 @@
 {
-  "version": "0.7.0",
-  "language": "js",
-
+  "version": "0.6.0",
+  "language": "ts",
   "bundleAnalyzer": false,
   "bundleBuddy": false,
   "lodashJS": false,
   "vconsole": false,
-
   "host": "localhost",
   "port": 3000,
   "mock_port": 3001,
-
   "globals": {},
-  "resolve_alias": {
-    "utils": "./src/utils"
-  },
+  "resolve_alias": { "utils": "./src/utils" },
   "public_path": "/",
   "js_path": "static/js/",
   "css_path": "static/css/",

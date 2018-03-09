@@ -39,6 +39,8 @@ module.exports = Object.assign(
     app_src: resolveApp('src'),
     app_mock: resolveApp('mock'),
     app_packageJson: resolveApp('package.json'),
+    app_tsConfig: resolveApp('tsconfig.json'),
+    app_tslint: resolveApp('tslint.json'),
     alias,
   },
   entryObj

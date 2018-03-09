@@ -25,11 +25,10 @@ const env = require('../env/env');
 const peak = require('../../peak.json');
 
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
-const entry = peak.language === 'js' ? getEntry('../../src', [
-  require.resolve('../utils/polyfills.js'),
-]) : getEntry('../../src', [
-  require.resolve('../utils/polyfills.js'),
-], true);
+const entry =
+  peak.language === 'js'
+    ? getEntry('../../src', [require.resolve('../utils/polyfills.js')])
+    : getEntry('../../src', [require.resolve('../utils/polyfills.js')], true);
 const pathsKey = Object.keys(paths);
 
 const config = {
@@ -37,8 +36,9 @@ const config = {
   target: 'web',
   devtool: 'cheap-module-source-map',
   entry: Object.assign(entry, {
-    ...peak.compiler_commons.length !== 0 ?
-    {common: peak.compiler_commons} : {},
+    ...(peak.compiler_commons.length !== 0
+      ? { common: peak.compiler_commons }
+      : {}),
   }),
   output: {
     path: paths.app_build,
@@ -53,6 +53,7 @@ const config = {
   resolve: {
     extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx', '.ts', '.tsx'],
     plugins: [
+      // 模块路径映射
       new ModuleScopePlugin(paths.app_src, [paths.app_packageJson]),
     ],
     alias: paths.alias,
@@ -60,28 +61,46 @@ const config = {
   module: {
     strictExportPresence: true,
     rules: [
-      {...peak.language === 'js' ? {
-        test: /\.(js|jsx)$/,
-        exclude: [/node_modules/, /bin/, /build/, /config/, /dll/, /mock/, /public/],
-        enforce: 'pre',
-        use: [{
-          loader: require.resolve('eslint-loader'),
-          options: {
-            formatter: eslintFormatter,
-            eslintPath: require.resolve('eslint'),
-            ignore: ["bin", "config", "dll", "mock", "node_modules", "public"],
-          },
-        }],
-        include: paths.app_src,
-      } : {
-        test: /\.(ts|tsx)$/,
-        exclude: [/node_modules/, /bin/, /build/, /config/, /dll/, /mock/, /public/],
-        enforce: 'pre',
-        use: [{
-          loader: require.resolve('tslint-loader'),
-        }],
-        include: paths.app_src,
-      }},
+      {
+        ...(peak.language === 'js'
+          ? {
+              test: /\.(js|jsx)$/,
+              exclude: [
+                /node_modules/,
+                /bin/,
+                /build/,
+                /config/,
+                /dll/,
+                /mock/,
+                /public/,
+              ],
+              enforce: 'pre',
+              use: [
+                {
+                  loader: require.resolve('eslint-loader'),
+                  options: {
+                    formatter: eslintFormatter,
+                    eslintPath: require.resolve('eslint'),
+                    ignore: [
+                      'bin',
+                      'config',
+                      'dll',
+                      'mock',
+                      'node_modules',
+                      'public',
+                    ],
+                  },
+                },
+              ],
+              include: paths.app_src,
+            }
+          : {
+              test: /\.(js|jsx)$/,
+              enforce: 'pre',
+              include: paths.app_src,
+              loader: require.resolve('source-map-loader'),
+            }),
+      },
       {
         oneOf: [
           {
@@ -96,59 +115,68 @@ const config = {
             test: /\.css$/,
             use: ExtractTextPlugin.extract({
               fallback: require.resolve('style-loader'),
-              use: [{
-                loader: require.resolve('css-loader'),
-                options: {
-                  importLoaders: 1,
-                  minimize: true,
-                  sourceMap: true,
-                },
-              }, {
-                loader: require.resolve('postcss-loader'),
-                options: {
-                  config: {
-                    path: path.resolve(__dirname, '../../'),
+              use: [
+                {
+                  loader: require.resolve('css-loader'),
+                  options: {
+                    importLoaders: 1,
+                    minimize: true,
+                    sourceMap: true,
                   },
                 },
-              }],
+                {
+                  loader: require.resolve('postcss-loader'),
+                  options: {
+                    config: {
+                      path: path.resolve(__dirname, '../../'),
+                    },
+                  },
+                },
+              ],
             }),
           },
           {
             test: /\.less$/,
             use: ExtractTextPlugin.extract({
               fallback: require.resolve('style-loader'),
-              use: [{
-                loader: require.resolve('css-loader'),
-                options: {
-                  importLoaders: 1,
-                  minimize: true,
-                  sourceMap: true,
-                },
-              }, {
-                loader: require.resolve('postcss-loader'),
-                options: {
-                  config: {
-                    path: path.resolve(__dirname, '../../'),
+              use: [
+                {
+                  loader: require.resolve('css-loader'),
+                  options: {
+                    importLoaders: 1,
+                    minimize: true,
+                    sourceMap: true,
                   },
                 },
-              }, {
-                loader: require.resolve('less-loader'),
-                options: {
-                  noIeCompat: true,
+                {
+                  loader: require.resolve('postcss-loader'),
+                  options: {
+                    config: {
+                      path: path.resolve(__dirname, '../../'),
+                    },
+                  },
                 },
-              }],
+                {
+                  loader: require.resolve('less-loader'),
+                  options: {
+                    noIeCompat: true,
+                  },
+                },
+              ],
             }),
           },
           {
-            ...peak.language === 'js' ? {
-              test: /\.(js|jsx)$/,
-              include: paths.app_src,
-              loader: 'happypack/loader?id=jsx',
-            } : {
-              test: /\.(ts|tsx)$/,
-              include: paths.app_src,
-              loader: 'awesome-typescript-loader',
-            },
+            ...(peak.language === 'js'
+              ? {
+                  test: /\.(js|jsx)$/,
+                  include: paths.app_src,
+                  loader: 'happypack/loader?id=jsx',
+                }
+              : {
+                  test: /\.(ts|tsx)$/,
+                  include: paths.app_src,
+                  loader: 'happypack/loader?id=tsx',
+                }),
           },
           {
             loader: require.resolve('file-loader'),
@@ -175,7 +203,7 @@ const config = {
         screw_ie8: true, // React doesn't support IE8
         unused: true,
         dead_code: true,
-        warnings: false,  // uglifyjs 的警告信息
+        warnings: false, // uglifyjs 的警告信息
         pure_funcs: ['console.log'], // 去除代码console.log
       },
       mangle: {
@@ -233,21 +261,35 @@ if (peak.language === 'js') {
       id: 'jsx',
       loaders: ['babel-loader'],
       threadPool: happyThreadPool,
-      verbose: true,
     })
-  )
+  );
 } else {
-  const { CheckerPlugin } = require('awesome-typescript-loader');
-  config.module.rules.push(
-    {
-      test: /\.js$/,
-      enforce: "pre",
-      include: paths.app_src,
-      loader: require.resolve('source-map-loader'),
-    }
+  const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+  const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+  config.resolve.plugins.push(
+    // ts配置路径
+    new TsconfigPathsPlugin({ configFile: paths.app_tsConfig })
   );
   config.plugins.push(
-    new CheckerPlugin()
+    // 利用子进程来进行ts类型校验,加快编译速度
+    new ForkTsCheckerWebpackPlugin({
+      async: false,
+      tsconfig: paths.app_tsConfig,
+      tslint: paths.app_tslint,
+      checkSyntacticErrors: true,
+    })
+  );
+  config.plugins.push(
+    new HappyPack({
+      id: 'tsx',
+      loaders: [
+        {
+          path: 'ts-loader',
+          query: { happyPackMode: true, transpileOnly: true },
+        },
+      ],
+      threadPool: happyThreadPool,
+    })
   );
 }
 
@@ -257,7 +299,7 @@ if (peak.compiler_vendors.length !== 0) {
       context: paths.app,
       manifest: paths.app_dll_dllManifestJson,
     })
-  )
+  );
 }
 
 if (peak.lodashJS) {
@@ -269,20 +311,18 @@ if (peak.lodashJS) {
         paths: true,
       },
     })
-  )
+  );
 }
 
 if (!_.isEmpty(peak.pre)) {
-  config.plugins.push(
-    new PreloadWebpackPlugin(peak.pre)
-  )
+  config.plugins.push(new PreloadWebpackPlugin(peak.pre));
 }
 
 if (peak.bundleBuddy) {
   config.plugins.push(
     // 打包后代码分割依赖包分析
-    new BundleBuddyWebpackPlugin({warnings: false})
-  )
+    new BundleBuddyWebpackPlugin({ warnings: false })
+  );
 }
 
 for (let key in entry) {

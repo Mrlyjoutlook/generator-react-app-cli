@@ -131,4 +131,4 @@ Generator-react-app-cli is [MIT licensed.](https://github.com/Mrlyjoutlook/gener
 
 ## End
 
-If you have any questions, you can issues me！Thank you!
+If you have any questions, you can give me issues！Thank you!

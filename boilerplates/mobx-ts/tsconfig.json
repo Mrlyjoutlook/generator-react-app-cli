@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "outDir": "build", // 构建输出目录
+    "module": "esnext",
+    "target": "es5", // 编译目标平台
+    "lib": ["es6", "dom"],
+    "sourceMap": true, // 使 TypeScript 生成 sourcemaps
+    "allowJs": true,
+    "jsx": "react", // 支持 react
+    "moduleResolution": "node",
+    "rootDir": "src", // 指定虚拟目录，可多个目录下的工程源文件在编译时会进行合并放在某个输出目录下
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true, // 是否不允许当this表达式的值为any类型
+    "noImplicitAny": false, // 在表达式和声明上有隐含的 any类型时报错。
+    "strictNullChecks": false, // 是否允许null和undefined值不包含在任何类型里
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true // 开启装饰器支持
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+    "bin",
+    "config",
+    "dll",
+    "mock",
+    "public"
+  ],
+  "include": ["src/**/*"],
+  "baseUrl": ".", // paths 是相对于baseUrl解析
+  "paths": {} // 路径映射
+}

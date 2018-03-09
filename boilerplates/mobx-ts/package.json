@@ -1,0 +1,136 @@
+{
+  "name": "react",
+  "version": "0.6.0",
+  "description": "MRLYJ - React Redux(TypeScript) Starter Kit",
+  "main": "index.js",
+  "scripts": {
+    "dev": "better-npm-run dev",
+    "compile": "better-npm-run compile",
+    "dll": "better-npm-run dll",
+    "mock": "better-npm-run mock",
+    "deploy": "better-npm-run deploy",
+    "deploy:dev": "better-npm-run deploy:dev",
+    "deploy:prod": "better-npm-run deploy:prod",
+    "webpack-defaults": "webpack-defaults"
+  },
+  "betterScripts": {
+    "dll": {
+      "command": "node bin/dll",
+      "env": {
+        "DEBUG": "app:*",
+        "NODE_ENV": "production"
+      }
+    },
+    "dev": {
+      "command":
+        "nodemon bin/dev --ignore bin --ignore build --ignore dll --ignore mock --ignore public --ignore src --ignore node_modules",
+      "env": {
+        "DEBUG": "app:*",
+        "NODE_ENV": "development"
+      }
+    },
+    "compile": {
+      "command": "node bin/build",
+      "env": {
+        "DEBUG": "app:*"
+      }
+    },
+    "mock": {
+      "command": "cd mock && node mockServer",
+      "env": {}
+    },
+    "deploy": {
+      "command": "npm run compile",
+      "env": {
+        "DEBUG": "app:*"
+      }
+    },
+    "deploy:dev": {
+      "command": "npm run deploy",
+      "env": {
+        "DEBUG": "app:*",
+        "NODE_ENV": "development"
+      }
+    },
+    "deploy:prod": {
+      "command": "npm run deploy",
+      "env": {
+        "DEBUG": "app:*",
+        "NODE_ENV": "production"
+      }
+    }
+  },
+  "author": "mrlyj",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/webpack-env": "^1.13.5",
+    "autoprefixer": "^7.1.3",
+    "better-npm-run": "^0.1.0",
+    "bundle-buddy-webpack-plugin": "^0.3.0",
+    "case-sensitive-paths-webpack-plugin": "^2.1.1",
+    "chalk": "1.1.3",
+    "compression": "^1.7.0",
+    "css-loader": "^0.28.7",
+    "debug": "^3.0.1",
+    "escape-string-regexp": "^1.0.5",
+    "express": "^4.15.4",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
+    "filesize": "^3.5.10",
+    "fork-ts-checker-webpack-plugin": "^0.4.0",
+    "fs-extra": "^4.0.1",
+    "gzip-size": "^3.0.0",
+    "happypack": "^4.0.0-beta.5",
+    "html-webpack-plugin": "^2.30.1",
+    "http-proxy-middleware": "^0.17.4",
+    "ip": "^1.1.5",
+    "json-server": "^0.12.0",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.5",
+    "lodash-webpack-plugin": "^0.11.4",
+    "nodemon": "^1.12.0",
+    "object-assign": "^4.1.1",
+    "opn": "^5.1.0",
+    "os": "^0.1.1",
+    "postcss-flexbugs-fixes": "^3.2.0",
+    "postcss-loader": "^2.0.6",
+    "preload-webpack-plugin": "^2.0.0",
+    "prettier-eslint": "^8.8.1",
+    "promise": "^8.0.1",
+    "react-addons-perf": "^15.4.2",
+    "react-hot-loader": "^3.0.0-beta.7",
+    "recursive-readdir": "^2.2.1",
+    "source-map-loader": "^0.2.3",
+    "strip-ansi": "^4.0.0",
+    "style-loader": "^0.18.2",
+    "sw-precache-webpack-plugin": "^0.11.4",
+    "ts-loader": "2.3.7",
+    "tsconfig-paths-webpack-plugin": "^2.0.0",
+    "tslint": "^5.7.0",
+    "tslint-loader": "^3.5.3",
+    "tslint-react": "^3.2.0",
+    "typescript": "2.7.2",
+    "url-loader": "^0.5.9",
+    "vconsole-webpack-plugin": "^1.1.2",
+    "webpack": "^3.5.6",
+    "webpack-bundle-analyzer": "^2.9.0",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.19.0",
+    "webpack-manifest-plugin": "^1.3.1"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.74",
+    "@types/node": "^8.0.28",
+    "@types/react": "^16.0.40",
+    "@types/react-hot-loader": "^3.0.4",
+    "@types/react-loadable": "^5.3.3",
+    "@types/react-router-dom": "^4.0.7",
+    "mobx": "^3.6.1",
+    "mobx-react": "^4.4.2",
+    "normalize.css": "^7.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-loadable": "^5.3.1",
+    "react-router-dom": "^4.2.2"
+  }
+}

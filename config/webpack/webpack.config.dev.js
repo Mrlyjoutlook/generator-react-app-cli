@@ -8,7 +8,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const vConsolePlugin = require('vconsole-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InterpolateHtmlPlugin = require('../utils/InterpolateHtmlPlugin');
 const ModuleScopePlugin = require('../utils/ModuleScopePlugin');
@@ -18,15 +19,22 @@ const paths = require('../env/paths');
 const env = require('../env/env');
 const peak = require('../../peak.json');
 
-const entry = peak.language === 'js' ? getEntry('../../src', [
-  require.resolve('../utils/polyfills.js'),
-  'react-hot-loader/patch',
-  `webpack-hot-middleware/client?path=${peak.public_path}__webpack_hmr`,
-]) : getEntry('../../src', [
-  require.resolve('../utils/polyfills.js'),
-  'react-hot-loader/patch',
-  `webpack-hot-middleware/client?path=${peak.public_path}__webpack_hmr`,
-], true);
+const entry =
+  peak.language === 'js'
+    ? getEntry('../../src', [
+        require.resolve('../utils/polyfills.js'),
+        'react-hot-loader/patch',
+        `webpack-hot-middleware/client?path=${peak.public_path}__webpack_hmr`,
+      ])
+    : getEntry(
+        '../../src',
+        [
+          require.resolve('../utils/polyfills.js'),
+          'react-hot-loader/patch',
+          `webpack-hot-middleware/client?path=${peak.public_path}__webpack_hmr`,
+        ],
+        true
+      );
 
 const pathsKey = Object.keys(paths);
 
@@ -45,6 +53,7 @@ const config = {
   resolve: {
     extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx', '.ts', '.tsx'],
     plugins: [
+      // 模块路径映射
       new ModuleScopePlugin(paths.app_src, [paths.app_packageJson]),
     ],
     alias: paths.alias,
@@ -52,28 +61,46 @@ const config = {
   module: {
     strictExportPresence: true,
     rules: [
-      {...peak.language === 'js' ? {
-        test: /\.(js|jsx)$/,
-        exclude: [/node_modules/, /bin/, /build/, /config/, /dll/, /mock/, /public/],
-        enforce: 'pre',
-        use: [{
-          loader: require.resolve('eslint-loader'),
-          options: {
-            formatter: eslintFormatter,
-            eslintPath: require.resolve('eslint'),
-            ignore: ["bin", "config", "dll", "mock", "node_modules", "public"],
-          },
-        }],
-        include: paths.app_src,
-      } : {
-        test: /\.(ts|tsx)$/,
-        exclude: [/node_modules/, /bin/, /build/, /config/, /dll/, /mock/, /public/],
-        enforce: 'pre',
-        use: [{
-          loader: require.resolve('tslint-loader'),
-        }],
-        include: paths.app_src,
-      }},
+      {
+        ...(peak.language === 'js'
+          ? {
+              test: /\.(js|jsx)$/,
+              exclude: [
+                /node_modules/,
+                /bin/,
+                /build/,
+                /config/,
+                /dll/,
+                /mock/,
+                /public/,
+              ],
+              enforce: 'pre',
+              use: [
+                {
+                  loader: require.resolve('eslint-loader'),
+                  options: {
+                    formatter: eslintFormatter,
+                    eslintPath: require.resolve('eslint'),
+                    ignore: [
+                      'bin',
+                      'config',
+                      'dll',
+                      'mock',
+                      'node_modules',
+                      'public',
+                    ],
+                  },
+                },
+              ],
+              include: paths.app_src,
+            }
+          : {
+              test: /\.(js|jsx)$/,
+              enforce: 'pre',
+              include: paths.app_src,
+              loader: require.resolve('source-map-loader'),
+            }),
+      },
       {
         oneOf: [
           {
@@ -95,7 +122,8 @@ const config = {
                   minimize: true,
                   sourceMap: true,
                 },
-              }, {
+              },
+              {
                 loader: require.resolve('postcss-loader'),
                 options: {
                   config: {
@@ -116,14 +144,16 @@ const config = {
                   minimize: true,
                   sourceMap: true,
                 },
-              }, {
+              },
+              {
                 loader: require.resolve('postcss-loader'),
                 options: {
                   config: {
                     path: path.resolve(__dirname, '../../'),
                   },
                 },
-              }, {
+              },
+              {
                 loader: require.resolve('less-loader'),
                 options: {
                   noIeCompat: true,
@@ -132,21 +162,28 @@ const config = {
             ],
           },
           {
-            ...peak.language === 'js' ? {
-              test: /\.(js|jsx)$/,
-              include: paths.app_src,
-              use: [
-                require.resolve('react-hot-loader/webpack'),
-                require.resolve('babel-loader'),
-              ],
-            } : {
-              test: /\.(ts|tsx)$/,
-              include: paths.app_src,
-              use:[
-                require.resolve('react-hot-loader/webpack'),
-                require.resolve('awesome-typescript-loader'),
-              ],
-            },
+            ...(peak.language === 'js'
+              ? {
+                  test: /\.(js|jsx)$/,
+                  include: paths.app_src,
+                  use: [
+                    require.resolve('react-hot-loader/webpack'),
+                    require.resolve('babel-loader'),
+                  ],
+                }
+              : {
+                  test: /\.(ts|tsx)$/,
+                  include: paths.app_src,
+                  use: [
+                    require.resolve('react-hot-loader/webpack'),
+                    {
+                      loader: require.resolve('ts-loader'),
+                      options: {
+                        transpileOnly: true,
+                      },
+                    },
+                  ],
+                }),
           },
           {
             exclude: [/\.js$/, /\.html$/, /\.json$/],
@@ -189,17 +226,24 @@ const config = {
   performance: {
     hints: false,
   },
-}
+};
 
 if (peak.language === 'ts') {
-  config.module.rules.push(
-    {
-      test: /\.js$/,
-      enforce: "pre",
-      include: paths.app_src,
-      loader: require.resolve('source-map-loader'),
-    }
-  )
+  const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+  const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+  config.resolve.plugins.push(
+    // ts配置路径
+    new TsconfigPathsPlugin({ configFile: paths.app_tsConfig })
+  );
+  config.plugins.push(
+    // 利用子进程来进行ts类型校验,加快编译速度
+    new ForkTsCheckerWebpackPlugin({
+      async: false,
+      watch: paths.app_src,
+      tsconfig: paths.app_tsConfig,
+      tslint: paths.app_tslint,
+    })
+  );
 }
 
 if (peak.vconsole) {
@@ -215,7 +259,7 @@ if (peak.compiler_vendors.length !== 0) {
       context: paths.app,
       manifest: paths.app_dll_dllManifestJson,
     })
-  )
+  );
 }
 
 if (peak.bundleAnalyzer) {
