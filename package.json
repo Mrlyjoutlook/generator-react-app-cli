@@ -1,6 +1,6 @@
 {
   "name": "generator-react-app-cli",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "a cli for creating react project projects work.",
   "bin": {
     "peak": "./command/index.js"

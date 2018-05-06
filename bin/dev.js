@@ -17,12 +17,15 @@ clearConsole();
 // 检查是否使用webpack dll功能
 checkIsUseDll(peak.compiler_vendors.length !== 0, paths.app_dll_dllManifestJson)
   .then(
-    (checkConfig) => {
+    checkConfig => {
       if (checkConfig) {
         // 检查相关配置是否被更新
-        return checkConfigisEqual(peak.compiler_vendors, require(paths.app_dll_dllConfigJson).chunk);
+        return checkConfigisEqual(
+          peak.compiler_vendors,
+          require(paths.app_dll_dllConfigJson).chunk
+        );
       } else {
-        return true
+        return true;
       }
     },
     () => {
@@ -31,6 +34,7 @@ checkIsUseDll(peak.compiler_vendors.length !== 0, paths.app_dll_dllManifestJson)
   )
   .then(
     () => {
+      console.log(process.env.dir);
       require('../config/server').listen(env.port, err => {
         if (err) {
           return debug('Server error:' + err);
@@ -38,7 +42,11 @@ checkIsUseDll(peak.compiler_vendors.length !== 0, paths.app_dll_dllManifestJson)
         if (process.stdout.isTTY) {
           clearConsole();
         }
-        debug(`==> 🌎  Development Listening on port ${env.port}. Open up http://localhost:${env.port}/ in your browser.`);
+        debug(
+          `==> 🌎  Development Listening on port ${
+            env.port
+          }. Open up http://localhost:${env.port}/ in your browser.`
+        );
         openBrowser('http://localhost:' + env.port);
       });
     },

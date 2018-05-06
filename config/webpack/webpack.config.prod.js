@@ -34,11 +34,11 @@ const pathsKey = Object.keys(paths);
 const config = {
   bail: true,
   target: 'web',
-  devtool: 'cheap-module-source-map',
+  devtool: 'source-map',
   entry: Object.assign(entry, {
     ...(peak.compiler_commons.length !== 0
       ? { common: peak.compiler_commons }
-      : {}),
+      : {})
   }),
   output: {
     path: paths.app_build,
@@ -48,15 +48,15 @@ const config = {
     devtoolModuleFilenameTemplate: info =>
       path
         .relative(paths.app_src, info.absoluteResourcePath)
-        .replace(/\\/g, '/'),
+        .replace(/\\/g, '/')
   },
   resolve: {
     extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx', '.ts', '.tsx'],
     plugins: [
       // 模块路径映射
-      new ModuleScopePlugin(paths.app_src, [paths.app_packageJson]),
+      new ModuleScopePlugin(paths.app_src, [paths.app_packageJson])
     ],
-    alias: paths.alias,
+    alias: paths.alias
   },
   module: {
     strictExportPresence: true,
@@ -72,7 +72,7 @@ const config = {
                 /config/,
                 /dll/,
                 /mock/,
-                /public/,
+                /public/
               ],
               enforce: 'pre',
               use: [
@@ -87,19 +87,19 @@ const config = {
                       'dll',
                       'mock',
                       'node_modules',
-                      'public',
-                    ],
-                  },
-                },
+                      'public'
+                    ]
+                  }
+                }
               ],
-              include: paths.app_src,
+              include: paths.app_src
             }
           : {
               test: /\.(js|jsx)$/,
               enforce: 'pre',
               include: paths.app_src,
-              loader: require.resolve('source-map-loader'),
-            }),
+              loader: require.resolve('source-map-loader')
+            })
       },
       {
         oneOf: [
@@ -108,8 +108,8 @@ const config = {
             loader: require.resolve('url-loader'),
             options: {
               limit: 10000,
-              name: peak.media_path + '[name].[hash:8].[ext]',
-            },
+              name: peak.media_path + '[name].[hash:8].[ext]'
+            }
           },
           {
             test: /\.css$/,
@@ -121,19 +121,19 @@ const config = {
                   options: {
                     importLoaders: 1,
                     minimize: true,
-                    sourceMap: true,
-                  },
+                    sourceMap: true
+                  }
                 },
                 {
                   loader: require.resolve('postcss-loader'),
                   options: {
                     config: {
-                      path: path.resolve(__dirname, '../../'),
-                    },
-                  },
-                },
-              ],
-            }),
+                      path: path.resolve(__dirname, '../../')
+                    }
+                  }
+                }
+              ]
+            })
           },
           {
             test: /\.less$/,
@@ -145,49 +145,49 @@ const config = {
                   options: {
                     importLoaders: 1,
                     minimize: true,
-                    sourceMap: true,
-                  },
+                    sourceMap: true
+                  }
                 },
                 {
                   loader: require.resolve('postcss-loader'),
                   options: {
                     config: {
-                      path: path.resolve(__dirname, '../../'),
-                    },
-                  },
+                      path: path.resolve(__dirname, '../../')
+                    }
+                  }
                 },
                 {
                   loader: require.resolve('less-loader'),
                   options: {
-                    noIeCompat: true,
-                  },
-                },
-              ],
-            }),
+                    noIeCompat: true
+                  }
+                }
+              ]
+            })
           },
           {
             ...(peak.language === 'js'
               ? {
                   test: /\.(js|jsx)$/,
                   include: paths.app_src,
-                  loader: 'happypack/loader?id=jsx',
+                  loader: 'happypack/loader?id=jsx'
                 }
               : {
                   test: /\.(ts|tsx)$/,
                   include: paths.app_src,
-                  loader: 'happypack/loader?id=tsx',
-                }),
+                  loader: 'happypack/loader?id=tsx'
+                })
           },
           {
             loader: require.resolve('file-loader'),
             exclude: [/\.js$/, /\.html$/, /\.json$/],
             options: {
-              name: peak.media_path + '[name].[hash:8].[ext]',
-            },
-          },
-        ],
-      },
-    ],
+              name: peak.media_path + '[name].[hash:8].[ext]'
+            }
+          }
+        ]
+      }
+    ]
   },
   plugins: [
     // webpack 2.x 默认配置 为组件和模块分配ID
@@ -204,25 +204,25 @@ const config = {
         unused: true,
         dead_code: true,
         warnings: false, // uglifyjs 的警告信息
-        pure_funcs: ['console.log'], // 去除代码console.log
+        pure_funcs: ['console.log'] // 去除代码console.log
       },
       mangle: {
-        screw_ie8: true,
+        screw_ie8: true
       },
       output: {
         comments: false,
-        ascii_only: true,
+        ascii_only: true
       },
-      sourceMap: true,
+      sourceMap: true
     }),
     // load 按需引入
     new webpack.LoaderOptionsPlugin({
-      minimize: true,
+      minimize: true
     }),
     // 提取共享的依赖
     new webpack.optimize.CommonsChunkPlugin({
       names: ['common', 'manifest'],
-      minChunks: Infinity,
+      minChunks: Infinity
     }),
     // 去除重复模块依赖
     new webpack.optimize.AggressiveMergingPlugin(),
@@ -230,7 +230,7 @@ const config = {
     new webpack.HashedModuleIdsPlugin(),
     // 生产资源映射表
     new ManifestPlugin({
-      fileName: 'asset-manifest.json',
+      fileName: 'asset-manifest.json'
     }),
     // webpack 3.0.0 范围提升（Scope Hoisting）
     new webpack.optimize.ModuleConcatenationPlugin(),
@@ -240,18 +240,18 @@ const config = {
     new ExtractTextPlugin({
       filename: peak.css_path + '[name].[contenthash:8].css',
       disable: false,
-      allChunks: true,
+      allChunks: true
     }),
     // service worker
-    new SWPrecacheWebpackPlugin(swConfig),
+    new SWPrecacheWebpackPlugin(swConfig)
   ],
   node: {
     dgram: 'empty',
     fs: 'empty',
     net: 'empty',
     tls: 'empty',
-    child_process: 'empty',
-  },
+    child_process: 'empty'
+  }
 };
 
 if (peak.language === 'js') {
@@ -260,7 +260,7 @@ if (peak.language === 'js') {
     new HappyPack({
       id: 'jsx',
       loaders: ['babel-loader'],
-      threadPool: happyThreadPool,
+      threadPool: happyThreadPool
     })
   );
 } else {
@@ -276,7 +276,7 @@ if (peak.language === 'js') {
       async: false,
       tsconfig: paths.app_tsConfig,
       tslint: paths.app_tslint,
-      checkSyntacticErrors: true,
+      checkSyntacticErrors: true
     })
   );
   config.plugins.push(
@@ -285,10 +285,10 @@ if (peak.language === 'js') {
       loaders: [
         {
           path: 'ts-loader',
-          query: { happyPackMode: true, transpileOnly: true },
-        },
+          query: { happyPackMode: true, transpileOnly: true }
+        }
       ],
-      threadPool: happyThreadPool,
+      threadPool: happyThreadPool
     })
   );
 }
@@ -297,7 +297,7 @@ if (peak.compiler_vendors.length !== 0) {
   config.plugins.push(
     new webpack.DllReferencePlugin({
       context: paths.app,
-      manifest: paths.app_dll_dllManifestJson,
+      manifest: paths.app_dll_dllManifestJson
     })
   );
 }
@@ -308,8 +308,8 @@ if (peak.lodashJS) {
       disable: false,
       config: {
         collections: true,
-        paths: true,
-      },
+        paths: true
+      }
     })
   );
 }
@@ -326,6 +326,9 @@ if (peak.bundleBuddy) {
 }
 
 for (let key in entry) {
+  if (key === 'common') {
+    break;
+  }
   config.plugins.push(
     // html
     new HtmlWebpackPlugin({
@@ -343,8 +346,8 @@ for (let key in entry) {
         keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
-        minifyURLs: true,
-      },
+        minifyURLs: true
+      }
     })
   );
 }

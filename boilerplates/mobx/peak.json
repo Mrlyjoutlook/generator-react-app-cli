@@ -1,1 +1,22 @@
-{"version":"0.5.3","language":"js","bundleAnalyzer":false,"bundleBuddy":false,"lodashJS":false,"vconsole":false,"host":"localhost","port":3000,"mock_port":3001,"globals":{},"resolve_alias":{"utils":"./src/utils"},"public_path":"/","js_path":"static/js/","css_path":"static/css/","media_path":"static/media/","html":{},"compiler_commons":[],"compiler_vendors":[],"sw":{},"pre":{}}
+{
+  "version": "0.7.1",
+  "language": "js",
+  "bundleAnalyzer": false,
+  "bundleBuddy": false,
+  "lodashJS": false,
+  "vconsole": false,
+  "host": "localhost",
+  "port": 3000,
+  "mock_port": 3001,
+  "globals": {},
+  "resolve_alias": { "utils": "./src/utils" },
+  "public_path": "/",
+  "js_path": "static/js/",
+  "css_path": "static/css/",
+  "media_path": "static/media/",
+  "html": {},
+  "compiler_commons": [],
+  "compiler_vendors": [],
+  "sw": {},
+  "pre": {}
+}
