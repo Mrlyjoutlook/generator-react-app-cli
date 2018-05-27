@@ -73,7 +73,7 @@ Future plans
 a
 
 * [x] support mobx boilerplate(Development ing).
-* [ ] support mobx typescript boilerplate(Development ing).
+* [x] support mobx typescript boilerplate(Development ing).
 * [ ] support srr page(Development ing).
 * [x] support multi page.
 
